@@ -42,7 +42,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _hasAnotherContactNumber = false;
+  bool _rememberMe = true;
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +140,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          if (_hasAnotherContactNumber) {
-                            _hasAnotherContactNumber = false;
+                          if (_rememberMe) {
+                            _rememberMe = false;
                           } else {
-                            _hasAnotherContactNumber = true;
+                            _rememberMe = true;
                           }
                         });
                       },
@@ -152,8 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           /// Check Box
                           Icon(
-                            _hasAnotherContactNumber ? Icons.check_box_outline_blank_outlined : Icons.check_box_outlined,
-                            color: _hasAnotherContactNumber ? kFontColor : kFontColor,
+                            _rememberMe ? Icons.check_box_outline_blank_outlined : Icons.check_box_outlined,
+                            color: _rememberMe ? kFontColor : kFontColor,
                             size: 18.r,
                           ),
                           Padding(

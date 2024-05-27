@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
-
 import '../../../injector.dart';
 import 'package:formz/formz.dart';
 import '../../../utils/font.dart';
 import '../../../utils/colors.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'bloc/forgot_password_bloc.dart';
@@ -13,7 +10,6 @@ import '../../../core/presentation/custom_snack_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/presentation/buttons/main_button.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../../../core/presentation/buttons/circle_button.dart';
 import '../../../core/models/form_inputs/email_formz_model.dart';
 import '../../../core/presentation/textfields/custom_textfield.dart';
 
