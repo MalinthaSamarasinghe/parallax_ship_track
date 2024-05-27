@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/network/interceptors/authorization_interceptor.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import 'features/dashboard/presentation/bloc/dashboard_bloc.dart';
+
 import 'features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import 'features/forgot_password/domain/usecase/forgot_password_usecase.dart';
 import 'features/forgot_password/domain/repository/forgot_password_repository.dart';
@@ -83,6 +85,10 @@ Future<void> setupLocators() async {
   sl.registerLazySingleton<ForgotPasswordRepository>(() => ForgotPasswordRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));
   // Data Sources
   sl.registerLazySingleton<ForgotPasswordRemoteDataSource>(() => ForgotPasswordRemoteDataSourceImpl());
+
+  /// Feature: Dashboard Screen
+  // Blocs
+  sl.registerFactory<DashboardBloc>(() => DashboardBloc());
 
   /// Network
   sl.registerFactory<Dio>(() => Dio());

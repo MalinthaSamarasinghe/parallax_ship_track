@@ -7,6 +7,7 @@ import 'features/login/presentation/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'features/dashboard/presentation/dashboard_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class ParallaxShipTrackAppWrapper extends StatelessWidget {
@@ -91,8 +92,7 @@ class _ParallaxShipTrackAppState extends State<ParallaxShipTrackApp> {
     navigatedToNextScreen = true;
     switch (context.read<AuthBloc>().state.authenticationStatus) {
       case AuthStatus.authenticated:
-        /// TODO: dashboard screen
-        return const SizedBox();
+        return const DashboardScreenWrapper();
       default:
         return const LoginScreenWrapper();
     }
@@ -105,8 +105,7 @@ class _ParallaxShipTrackAppState extends State<ParallaxShipTrackApp> {
         {
           Navigator.pushAndRemoveUntil(
             context,
-            /// TODO: dashboard screen
-            MaterialPageRoute(builder: (context) => const SizedBox()), (route) => route.isFirst,
+            MaterialPageRoute(builder: (context) => const DashboardScreenWrapper()), (route) => route.isFirst,
           );
         }
         break;

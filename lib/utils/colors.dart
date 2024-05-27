@@ -12,3 +12,4 @@ const kShadowColor = Color(0x40000000);
 const kDividerColor = Color(0xffb3b3b3);
 const kFontColor = Color(0xff666666);
 const kFontHintColor = Color(0xffbdb6b6);
+const kDashboardColor = Color(0xffF9FCFE);

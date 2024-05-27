@@ -50,3 +50,15 @@ TextStyle kInter700(BuildContext context, {Color color = kColorBlack, double? fo
     height: height,
   );
 }
+
+TextStyle kInter800(BuildContext context, {Color color = kColorBlack, double? fontSize, double? height, TextDecoration? decoration = TextDecoration.none}) {
+  return TextStyle(
+    fontFamily: 'Inter',
+    color: color,
+    fontSize: fontSize ?? 18.sp,
+    fontWeight: FontWeight.w800,
+    fontStyle: FontStyle.normal,
+    decoration: decoration,
+    height: height,
+  );
+}

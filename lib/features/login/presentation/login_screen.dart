@@ -169,42 +169,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 8.h),
                   /// Login Button
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 37.w),
-                    child: BlocConsumer<LoginBloc, LoginState>(
-                      listener: (context, state) {
-                        if (state.status == FormzSubmissionStatus.failure) {
-                          EasyLoading.dismiss();
+                  BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      if (state.status == FormzSubmissionStatus.failure) {
+                        EasyLoading.dismiss();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          CustomSnackBar().showSnackBar(
+                            context,
+                            title: 'Error',
+                            msg: state.errorMessage ?? 'Something went wrong. Please try again later.',
+                            snackBarTypes: SnackBarTypes.error,
+                          );
+                        });
+                      }
+                      if (state.status == FormzSubmissionStatus.success) {
+                        EasyLoading.dismiss();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        context.read<AuthBloc>().add(LoggedIn(authenticationStatus: AuthStatus.authenticated, user: state.userCredential!.user!));
+                      }
+                      if (state.status == FormzSubmissionStatus.inProgress) {
+                        EasyLoading.show(status: "Please Wait", dismissOnTap: false);
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
+                    builder: (context, state) {
+                      return MainButton(
+                        title: 'Log In',
+                        onPressed: () {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          Future.delayed(const Duration(milliseconds: 100), () {
-                            CustomSnackBar().showSnackBar(
-                              context,
-                              title: 'Error',
-                              msg: state.errorMessage ?? 'Something went wrong. Please try again later.',
-                              snackBarTypes: SnackBarTypes.error,
-                            );
-                          });
-                        }
-                        if (state.status == FormzSubmissionStatus.success) {
-                          EasyLoading.dismiss();
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          context.read<AuthBloc>().add(LoggedIn(authenticationStatus: AuthStatus.authenticated, user: state.userCredential!.user!));
-                        }
-                        if (state.status == FormzSubmissionStatus.inProgress) {
-                          EasyLoading.show(status: "Please Wait", dismissOnTap: false);
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        }
-                      },
-                      builder: (context, state) {
-                        return MainButton(
-                          title: 'Log In',
-                          onPressed: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            context.read<LoginBloc>().add(const PasswordLoginRequested(loginStatus: LoginStatus.loginInitial));
-                          },
-                        );
-                      },
-                    ),
+                          context.read<LoginBloc>().add(const PasswordLoginRequested(loginStatus: LoginStatus.loginInitial));
+                        },
+                      );
+                    },
                   ),
                   SizedBox(height: 12.h),
                   /// Forgot password

@@ -28,47 +28,42 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8.r),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          onTap: onPressed,
-          child: Ink(
-            width: double.infinity,
-            height: height ?? 45.h,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [kColorDarkBlue, kColorLightBlue],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-              ),
-              border: hasBorderColor
-                  ? Border.all(color: borderColor ?? kColorWhite, width: 1.w)
-                  : null,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: hasBoxShadow
-                  ? const [
-                      BoxShadow(
-                        color: kColorLightBlue,
-                        offset: Offset(0, 4),
-                        blurRadius: 20,
-                        spreadRadius: 5,
-                      )
-                    ]
-                  : null,
-            ),
-            child: Center(
-              child: isInProgress
-                  ? const CircularProgressIndicator()
-                  : AutoSizeText(
-                      title!,
-                      style: kInter500(context, color: titleColor ?? kColorWhite),
-                      textAlign: TextAlign.center,
-                      minFontSize: 16,
-                    ),
-            ),
-          ),
+    return Container(
+      width: double.infinity,
+      height: height ?? 45.h,
+      margin: EdgeInsets.symmetric(horizontal: 37.w),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [kColorDarkBlue, kColorLightBlue],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+        ),
+        border: hasBorderColor
+            ? Border.all(color: borderColor ?? kColorWhite, width: 1.w)
+            : null,
+        borderRadius: BorderRadius.circular(8.r),
+        boxShadow: hasBoxShadow
+            ? [
+                BoxShadow(
+                  color: kColorDarkBlue.withOpacity(0.5),
+                  offset: const Offset(2, 2),
+                  blurRadius: 2,
+                  spreadRadius: 0,
+                ),
+              ]
+            : null,
+      ),
+      child: InkWell(
+        onTap: onPressed,
+        child: Center(
+          child: isInProgress
+              ? const CircularProgressIndicator()
+              : AutoSizeText(
+                  title!,
+                  style: kInter500(context, color: titleColor ?? kColorWhite),
+                  textAlign: TextAlign.center,
+                  minFontSize: 16,
+                ),
         ),
       ),
     );

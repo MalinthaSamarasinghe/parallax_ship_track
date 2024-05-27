@@ -112,7 +112,6 @@ class CustomSnackBarContent extends StatelessWidget {
                         textAlign: TextAlign.left,
                         minFontSize: 16,
                         maxLines: 2,
-
                       ),
                     ),
                   ],

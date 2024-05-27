@@ -202,44 +202,41 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   /// Sign Up Button
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 37.w),
-                    child: BlocConsumer<SignUpBloc, SignUpState>(
-                      listener: (context, state) {
-                        if (state.status == FormzSubmissionStatus.failure) {
-                          EasyLoading.dismiss();
+                  BlocConsumer<SignUpBloc, SignUpState>(
+                    listener: (context, state) {
+                      if (state.status == FormzSubmissionStatus.failure) {
+                        EasyLoading.dismiss();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          CustomSnackBar().showSnackBar(
+                            context,
+                            title: 'Error',
+                            msg: state.errorMessage ?? 'Something went wrong. Please try again later.',
+                            snackBarTypes: SnackBarTypes.error,
+                          );
+                        });
+                      }
+                      if (state.status == FormzSubmissionStatus.success) {
+                        EasyLoading.dismiss();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        context.read<AuthBloc>().add(LoggedIn(authenticationStatus: AuthStatus.authenticated, user: state.userCredential!.user!));
+                        context.read<ProfileBloc>().add(UpdateNameChanged(name: state.name.value));
+                        context.read<ProfileBloc>().add(const UpdateProfileImgChanged(profileImg: 'https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere.png'));
+                      }
+                      if (state.status == FormzSubmissionStatus.inProgress) {
+                        EasyLoading.show(status: "Please Wait", dismissOnTap: false);
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
+                    builder: (context, state) {
+                      return MainButton(
+                        title: 'Sign Up',
+                        onPressed: () {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          Future.delayed(const Duration(milliseconds: 100), () {
-                            CustomSnackBar().showSnackBar(
-                              context,
-                              title: 'Error',
-                              msg: state.errorMessage ?? 'Something went wrong. Please try again later.',
-                              snackBarTypes: SnackBarTypes.error,
-                            );
-                          });
-                        }
-                        if (state.status == FormzSubmissionStatus.success) {
-                          EasyLoading.dismiss();
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          context.read<AuthBloc>().add(LoggedIn(authenticationStatus: AuthStatus.authenticated, user: state.userCredential!.user!));
-                          context.read<ProfileBloc>().add(UpdateNameChanged(name: state.name.value));
-                          context.read<ProfileBloc>().add(const UpdateProfileImgChanged(profileImg: 'https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere.png'));
-                        }
-                        if (state.status == FormzSubmissionStatus.inProgress) {
-                          EasyLoading.show(status: "Please Wait", dismissOnTap: false);
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        }
-                      },
-                      builder: (context, state) {
-                        return MainButton(
-                          title: 'Sign Up',
-                          onPressed: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            context.read<SignUpBloc>().add(const GetAccountCreationRequested());
-                          },
-                        );
-                      },
-                    ),
+                          context.read<SignUpBloc>().add(const GetAccountCreationRequested());
+                        },
+                      );
+                    },
                   ),
                   SizedBox(height: 10.h),
                   /// Forgot password

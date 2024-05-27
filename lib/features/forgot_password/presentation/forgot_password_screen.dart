@@ -116,50 +116,47 @@ class ForgotPasswordScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 30.h),
                   /// Submit Button
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 37.w),
-                    child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
-                      listener: (context, state) {
-                        if (state.status == FormzSubmissionStatus.failure) {
-                          EasyLoading.dismiss();
+                  BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
+                    listener: (context, state) {
+                      if (state.status == FormzSubmissionStatus.failure) {
+                        EasyLoading.dismiss();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          CustomSnackBar().showSnackBar(
+                            context,
+                            title: 'Error',
+                            msg: state.errorMessage ?? 'Something went wrong. Please try again later.',
+                            snackBarTypes: SnackBarTypes.error,
+                          );
+                        });
+                      }
+                      if (state.status == FormzSubmissionStatus.success) {
+                        EasyLoading.dismiss();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          CustomSnackBar().showSnackBar(
+                            context,
+                            title: 'Success',
+                            msg: state.successMessage ?? 'Password reset link sent to ${state.email.value}. Please check your ${state.email.value} to reset your password.',
+                            snackBarTypes: SnackBarTypes.alert,
+                          );
+                        });
+                        Navigator.pop(context);
+                      }
+                      if (state.status == FormzSubmissionStatus.inProgress) {
+                        EasyLoading.show(status: "Please Wait", dismissOnTap: false);
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
+                    builder: (context, state) {
+                      return MainButton(
+                        title: 'Submit',
+                        onPressed: () {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          Future.delayed(const Duration(milliseconds: 100), () {
-                            CustomSnackBar().showSnackBar(
-                              context,
-                              title: 'Error',
-                              msg: state.errorMessage ?? 'Something went wrong. Please try again later.',
-                              snackBarTypes: SnackBarTypes.error,
-                            );
-                          });
-                        }
-                        if (state.status == FormzSubmissionStatus.success) {
-                          EasyLoading.dismiss();
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          Future.delayed(const Duration(milliseconds: 100), () {
-                            CustomSnackBar().showSnackBar(
-                              context,
-                              title: 'Success',
-                              msg: state.successMessage ?? 'Password reset link sent to ${state.email.value}. Please check your ${state.email.value} to reset your password.',
-                              snackBarTypes: SnackBarTypes.alert,
-                            );
-                          });
-                          Navigator.pop(context);
-                        }
-                        if (state.status == FormzSubmissionStatus.inProgress) {
-                          EasyLoading.show(status: "Please Wait", dismissOnTap: false);
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        }
-                      },
-                      builder: (context, state) {
-                        return MainButton(
-                          title: 'Submit',
-                          onPressed: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            context.read<ForgotPasswordBloc>().add(const ForgotPasswordLinkRequested());
-                          },
-                        );
-                      },
-                    ),
+                          context.read<ForgotPasswordBloc>().add(const ForgotPasswordLinkRequested());
+                        },
+                      );
+                    },
                   ),
                   SizedBox(height: 40.h),
                 ],
