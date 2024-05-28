@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/screen_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
+import '../../order_details/presentation/order_details_view.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
@@ -155,7 +156,9 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                                 ),
                                 SizedBox(width: 5.w),
                                 GestureDetector(
-                                  onTap: () { },
+                                  onTap: () {
+                                    _showOrderView();
+                                  },
                                   child: Icon(
                                     Icons.more_vert_outlined,
                                     size: 24.r,
@@ -176,6 +179,19 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showOrderView() {
+    showDialog<String>(
+      context: context,
+      barrierColor: kDialogBgColor.withOpacity(0.3),
+      builder: (_) {
+        return BlocProvider.value(
+          value: BlocProvider.of<DashboardBloc>(context),
+          child: const OrderDetailsView(),
+        );
+      },
     );
   }
 }

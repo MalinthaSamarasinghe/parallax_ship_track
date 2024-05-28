@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../all_orders/presentation/all_orders_screen.dart';
 import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import '../../order_timeline/presentation/order_timeline_view.dart';
+import '../../order_details/presentation/order_details_tab_view.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
 class MyOrdersScreen extends StatefulWidget {
@@ -108,7 +108,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                   ),
                                 );
                               } else {
-                                _showOrderTimeLineView();
+                                _showOrderTabView();
                               }
                             },
                             child: Container(
@@ -177,14 +177,14 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
     );
   }
 
-  void _showOrderTimeLineView() {
+  void _showOrderTabView() {
     showDialog<String>(
       context: context,
       barrierColor: kDialogBgColor.withOpacity(0.3),
       builder: (_) {
         return BlocProvider.value(
           value: BlocProvider.of<DashboardBloc>(context),
-          child: const OrderTimelineView(),
+          child: const OrderDetailsTabView(),
         );
       },
     );

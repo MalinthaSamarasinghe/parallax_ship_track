@@ -11,14 +11,14 @@ import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
-class OrderTimelineView extends StatefulWidget {
-  const OrderTimelineView({super.key});
+class OrderDetailsTabView extends StatefulWidget {
+  const OrderDetailsTabView({super.key});
 
   @override
-  State<OrderTimelineView> createState() => _OrderTimelineViewState();
+  State<OrderDetailsTabView> createState() => _OrderDetailsTabViewState();
 }
 
-class _OrderTimelineViewState extends State<OrderTimelineView> {
+class _OrderDetailsTabViewState extends State<OrderDetailsTabView> {
   late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
   String userUid = 'unknown_uid';
 
