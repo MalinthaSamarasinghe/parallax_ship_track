@@ -3,6 +3,8 @@ import '../../../utils/font.dart';
 import '../../../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'widgets/order_history_view.dart';
+import 'widgets/general_remark_view.dart';
+import 'widgets/invoice_history_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
@@ -103,8 +105,8 @@ class _OrderTimelineViewState extends State<OrderTimelineView> {
                 physics: ClampingScrollPhysics(),
                 children: [
                   OrderHistoryView(),
-                  SizedBox(),
-                  SizedBox(),
+                  InvoiceHistoryView(),
+                  GeneralRemarkView(),
                 ],
               ),
             ),

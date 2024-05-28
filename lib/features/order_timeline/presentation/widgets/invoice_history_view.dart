@@ -9,14 +9,14 @@ import '../../../dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
-class OrderHistoryView extends StatefulWidget {
-  const OrderHistoryView({super.key});
+class InvoiceHistoryView extends StatefulWidget {
+  const InvoiceHistoryView({super.key});
 
   @override
-  State<OrderHistoryView> createState() => _OrderHistoryViewState();
+  State<InvoiceHistoryView> createState() => _InvoiceHistoryViewState();
 }
 
-class _OrderHistoryViewState extends State<OrderHistoryView> {
+class _InvoiceHistoryViewState extends State<InvoiceHistoryView> {
   late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
   String userUid = 'unknown_uid';
 
@@ -73,29 +73,30 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// DELIVERED
+                        /// Approved
                         Text(
-                          "DELIVERED",
+                          "Approved",
                           style: kInter400(context, fontSize: 12.sp),
                           textAlign: TextAlign.left,
                         ),
                         SizedBox(height: 3.h),
-                        /// Collected COD Rs. 250.00. Rider: Test 09 Rider
+                        /// LKR 804
                         Text(
-                          "Collected COD Rs. 250.00. Rider: Test 09 Rider",
+                          "LKR 804",
                           style: kInter400(context, fontSize: 12.sp),
                           textAlign: TextAlign.left,
                         ),
-                        SizedBox(height: 3.h),
+                        SizedBox(height: 5.h),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 33.w,
-                              height: 33.w,
+                              width: 31.w,
+                              height: 31.w,
                               child: Image.asset(
-                                "assets/images/invoice_test_user.png",
-                                width: 33.w,
-                                height: 33.w,
+                                "assets/images/invoice_icon.png",
+                                width: 31.w,
+                                height: 31.w,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -103,7 +104,6 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 5.h),
                                 /// Demo Admin
                                 Text(
                                   "Demo Admin",
@@ -121,7 +121,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 40.h),
+                        SizedBox(height: 38.h),
                       ],
                     ),
                   ),
