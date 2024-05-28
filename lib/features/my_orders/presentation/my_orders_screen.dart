@@ -28,7 +28,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
     userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
     dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardDataChanged(data));
+      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -42,7 +42,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   }
 
   Stream<firebase_database.DatabaseEvent> getData(String uid) {
-    return firebase_database.FirebaseDatabase.instance.ref('result/$uid').onValue.map((firebaseData) {
+    return firebase_database.FirebaseDatabase.instance.ref('Users').onValue.map((firebaseData) {
       return firebaseData;
     });
   }

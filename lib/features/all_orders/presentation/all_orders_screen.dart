@@ -27,7 +27,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
     userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
     dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardDataChanged(data));
+      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });

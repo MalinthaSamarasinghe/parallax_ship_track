@@ -57,6 +57,8 @@ dependencies:
   dio: ^5.4.1
   # Annotations for freezed
   freezed_annotation: ^2.4.1
+  # Classes and helper functions that support JSON code generation via the `json_serializable` package.
+  json_annotation: ^4.8.1
   # adapting screen and font size.Let your UI display a reasonable layout on different screen sizes
   flutter_screenutil: ^5.8.4
   # automatically resizes text to fit perfectly within its bounds

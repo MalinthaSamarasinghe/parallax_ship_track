@@ -4,10 +4,19 @@ abstract class DashboardEvent extends Equatable {
   const DashboardEvent();
 }
 
-class DashboardDataChanged extends DashboardEvent {
+class DashboardOrderStatisticsChanged extends DashboardEvent {
   final firebase_database.DatabaseEvent? data;
 
-  const DashboardDataChanged(this.data);
+  const DashboardOrderStatisticsChanged(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}
+
+class DashboardFinanceStatisticsChanged extends DashboardEvent {
+  final firebase_database.DatabaseEvent? data;
+
+  const DashboardFinanceStatisticsChanged(this.data);
 
   @override
   List<Object?> get props => [data];

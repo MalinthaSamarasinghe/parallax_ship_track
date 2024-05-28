@@ -3,12 +3,15 @@ import '../../../injector.dart';
 import '../../../utils/font.dart';
 import 'bloc/dashboard_bloc.dart';
 import '../../../utils/colors.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/screen_app_bar.dart';
+import '../../../core/presentation/shimmer_builder.dart';
 import '../../my_orders/presentation/my_orders_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import '../../status_statistics/presentation/status_statistics_screen.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
@@ -37,15 +40,21 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
+  late final StreamSubscription<firebase_database.DatabaseEvent> orderStatisticsDataSubscription;
+  late final StreamSubscription<firebase_database.DatabaseEvent> financeStatisticsDataSubscription;
   String userUid = 'unknown_uid';
 
   @override
   void initState() {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
     userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
-    dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardDataChanged(data));
+    orderStatisticsDataSubscription = getOrderStatisticsData().listen((data) {
+      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
+    }, onError: (error) {
+      debugPrint("Error in data stream: $error");
+    });
+    financeStatisticsDataSubscription = getFinanceStatisticsData().listen((data) {
+      context.read<DashboardBloc>().add(DashboardFinanceStatisticsChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -54,12 +63,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void dispose() {
-    dataSubscription.cancel();
+    orderStatisticsDataSubscription.cancel();
+    financeStatisticsDataSubscription.cancel();
     super.dispose();
   }
 
-  Stream<firebase_database.DatabaseEvent> getData(String uid) {
-    return firebase_database.FirebaseDatabase.instance.ref('result/$uid').onValue.map((firebaseData) {
+  Stream<firebase_database.DatabaseEvent> getOrderStatisticsData() {
+    return firebase_database.FirebaseDatabase.instance.ref('Order_Statistics').onValue.map((firebaseData) {
+      return firebaseData;
+    });
+  }
+
+  Stream<firebase_database.DatabaseEvent> getFinanceStatisticsData() {
+    return firebase_database.FirebaseDatabase.instance.ref('Finance_Statistics').onValue.map((firebaseData) {
       return firebaseData;
     });
   }
@@ -129,7 +145,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         children: [
                           SizedBox(height: 10.h),
                           Text(
-                            'Orders Statistics',
+                            (state.dashboardOrderStatisticsData ?? []).isNotEmpty ? state.dashboardOrderStatisticsData?.first.mainCategory ?? '' : '',
                             style: kInter500(context, fontSize: 16.sp),
                           ),
                           SizedBox(height: 8.h),
@@ -147,7 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 crossAxisSpacing: 0,
                                 mainAxisSpacing: 12.h,
                               ),
-                              itemCount: 2,
+                              itemCount: (state.dashboardOrderStatisticsData ?? []).length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () { },
@@ -158,10 +174,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         width: 45.w,
                                         height: 45.w,
                                         child: Center(
-                                          child: Image.asset(
-                                            "assets/images/order_count.png",
-                                            width: 45.w,
-                                            height: 45.w,
+                                          child: CachedNetworkImage(
+                                            imageUrl: (state.dashboardOrderStatisticsData ?? []).isNotEmpty ? state.dashboardOrderStatisticsData![index].imagePath : '',
+                                            placeholder: (context, url) => shimmerLoader(),
+                                            errorWidget: (context, url, error) => SvgPicture.asset('assets/svg/error_warning.svg', fit: BoxFit.contain),
+                                            useOldImageOnUrlChange: true,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -174,7 +191,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           SizedBox(
                                             width: 90.w,
                                             child: Text(
-                                              "234.1k",
+                                              (state.dashboardOrderStatisticsData ?? []).isNotEmpty ? state.dashboardOrderStatisticsData![index].value : '',
                                               style: kInter800(context, fontSize: 24.sp),
                                               textAlign: TextAlign.left,
                                             ),
@@ -183,7 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           SizedBox(
                                             width: 90.w,
                                             child: Text(
-                                              "Total Delivery Charge",
+                                              (state.dashboardOrderStatisticsData ?? []).isNotEmpty ? state.dashboardOrderStatisticsData![index].name : '',
                                               style: kInter500(context, color: kFontColor, fontSize: 16.sp, height: 1.h),
                                               textAlign: TextAlign.left,
                                             ),
@@ -221,7 +238,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         children: [
                           SizedBox(height: 10.h),
                           Text(
-                            'Orders Statistics',
+                            (state.dashboardFinanceStatisticsData ?? []).isNotEmpty ? state.dashboardFinanceStatisticsData?.first.mainCategory ?? '' : '',
                             style: kInter500(context, fontSize: 16.sp),
                           ),
                           SizedBox(height: 8.h),
@@ -250,10 +267,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         width: 45.w,
                                         height: 45.w,
                                         child: Center(
-                                          child: Image.asset(
-                                            "assets/images/order_count.png",
-                                            width: 45.w,
-                                            height: 45.w,
+                                          child: CachedNetworkImage(
+                                            imageUrl: (state.dashboardFinanceStatisticsData ?? []).isNotEmpty ? state.dashboardFinanceStatisticsData![index].imagePath : '',
+                                            placeholder: (context, url) => shimmerLoader(),
+                                            errorWidget: (context, url, error) => SvgPicture.asset('assets/svg/error_warning.svg', fit: BoxFit.contain),
+                                            useOldImageOnUrlChange: true,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -266,7 +284,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           SizedBox(
                                             width: 90.w,
                                             child: Text(
-                                              "234.1k",
+                                              (state.dashboardFinanceStatisticsData ?? []).isNotEmpty ? state.dashboardFinanceStatisticsData![index].value : '',
                                               style: kInter800(context, fontSize: 24.sp),
                                               textAlign: TextAlign.left,
                                             ),
@@ -275,7 +293,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           SizedBox(
                                             width: 90.w,
                                             child: Text(
-                                              "Total Delivery Charge",
+                                              (state.dashboardFinanceStatisticsData ?? []).isNotEmpty ? state.dashboardFinanceStatisticsData![index].name : '',
                                               style: kInter500(context, color: kFontColor, fontSize: 16.sp, height: 1.h),
                                               textAlign: TextAlign.left,
                                             ),

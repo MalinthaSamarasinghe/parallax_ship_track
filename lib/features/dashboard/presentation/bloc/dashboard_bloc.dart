@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/blocs/event_transformer.dart';
+import '../../domain/entities/dashboard_statistics_entity.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
 part 'dashboard_event.dart';
@@ -10,34 +11,65 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   DashboardBloc() : super(const DashboardState()) {
-    on<DashboardDataChanged>(_dashboardDataChanged, transformer: Transformer.throttleDroppable());
+    on<DashboardOrderStatisticsChanged>(_dashboardOrderStatisticsChanged, transformer: Transformer.throttleDroppable());
+    on<DashboardFinanceStatisticsChanged>(_dashboardFinanceStatisticsChanged, transformer: Transformer.throttleDroppable());
   }
 
-  void _dashboardDataChanged(DashboardDataChanged event, Emitter<DashboardState> emit) {
+  void _dashboardOrderStatisticsChanged(DashboardOrderStatisticsChanged event, Emitter<DashboardState> emit) {
     if (event.data!.snapshot.exists) {
-      List<DashboardParams>? data = [];
+      List<DashboardStatisticsEntity>? data = [];
       for (final child in event.data!.snapshot.children) {
         /// cast the snapshot value to a Map
-        Map<String, dynamic> dashboardData = Map<String, dynamic>.from(child.value as Map);
-        String staticCategory = dashboardData['staticCategory'];
-        String staticType = dashboardData['staticType'];
-        String value = dashboardData['value'];
-        data.add(DashboardParams(
-          uid: child.key ?? 'unknown_uid',
-          staticCategory: staticCategory,
-          staticType: staticType,
+        Map<String, dynamic> dashboardOrderStatisticsObj = Map<String, dynamic>.from(child.value as Map);
+        String name = dashboardOrderStatisticsObj['Name'];
+        String value = dashboardOrderStatisticsObj['Value'];
+        String mainCategory = dashboardOrderStatisticsObj['Main_Category'];
+        String imagePath = dashboardOrderStatisticsObj['Image_URL'];
+        data.add(DashboardStatisticsEntity(
+          name: name,
           value: value,
+          mainCategory: mainCategory,
+          imagePath: imagePath,
         ));
       }
-      debugPrint("DashboardDataChanged data --> snapshot: $data");
+      debugPrint("DashboardOrderStatisticsChanged data --> snapshot: $data");
       emit(state.copyWith(
-        data: data,
+        dashboardOrderStatisticsData: data,
       ));
     } else {
       emit(state.copyWith(
-        data: [],
+        dashboardOrderStatisticsData: [],
       ));
-      debugPrint("DashboardDataChanged data --> snapshot: ${state.data}");
+      debugPrint("DashboardOrderStatisticsChanged data --> snapshot: ${state.dashboardOrderStatisticsData}");
+    }
+  }
+
+  void _dashboardFinanceStatisticsChanged(DashboardFinanceStatisticsChanged event, Emitter<DashboardState> emit) {
+    if (event.data!.snapshot.exists) {
+      List<DashboardStatisticsEntity>? data = [];
+      for (final child in event.data!.snapshot.children) {
+        /// cast the snapshot value to a Map
+        Map<String, dynamic> dashboardFinanceStatisticsObj = Map<String, dynamic>.from(child.value as Map);
+        String name = dashboardFinanceStatisticsObj['Name'];
+        String value = dashboardFinanceStatisticsObj['Value'];
+        String mainCategory = dashboardFinanceStatisticsObj['Main_Category'];
+        String imagePath = dashboardFinanceStatisticsObj['Image_URL'];
+        data.add(DashboardStatisticsEntity(
+          name: name,
+          value: value,
+          mainCategory: mainCategory,
+          imagePath: imagePath,
+        ));
+      }
+      debugPrint("DashboardFinanceStatisticsChanged data --> snapshot: $data");
+      emit(state.copyWith(
+        dashboardFinanceStatisticsData: data,
+      ));
+    } else {
+      emit(state.copyWith(
+        dashboardFinanceStatisticsData: [],
+      ));
+      debugPrint("DashboardFinanceStatisticsChanged data --> snapshot: ${state.dashboardFinanceStatisticsData}");
     }
   }
 }

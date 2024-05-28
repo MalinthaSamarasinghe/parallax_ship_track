@@ -1,29 +1,41 @@
 {
   "Order_Statistics": {
     "Orders_Count": {
+      "Name": "Orders Count",
       "Value": "3.1k",
+      "Main_Category": "Order Statistics",
       "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Order_Statistics%2FOrders_Count.png?alt=media&token=740a756e-c9e3-43ea-b14c-064eb33b6c16"
     },
     "Total_Delivery_Charges": {
+      "Name": "Total Delivery Charges",
       "Value": "4.8k",
+      "Main_Category": "Order Statistics",
       "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Order_Statistics%2FTotal_Delivery_Charges.png?alt=media&token=05c73f6b-f5d6-4b53-9ecf-ce7e1941b082"
     }
   },
   "Finance_Statistics": {
     "Invoice_Value": {
+      "Name": "Invoice Value",
       "Value": "234.1k",
+      "Main_Category": "Finance Statistics",
       "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FPaid_Invoice_Value.png?alt=media&token=a982e57b-9406-4981-9917-a4b5c1a7c1ca"
     },
     "Pending_Invoice": {
+      "Name": "Pending Value",
       "Value": "122.3k",
+      "Main_Category": "Finance Statistics",
       "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FPending_Invoice.png?alt=media&token=65c3ca03-2f2a-4e9e-a4c4-a4fb0e367356"
     },
     "Paid_Invoice_Value": {
+      "Name": "Paid Invoice Value",
       "Value": "678.7k",
+      "Main_Category": "Finance Statistics",
       "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FPaid_Invoice_Value.png?alt=media&token=a982e57b-9406-4981-9917-a4b5c1a7c1ca"
     },
     "Approved_Invoice": {
+      "Name": "Approved Value",
       "Value": "101.1k",
+      "Main_Category": "Finance Statistics",
       "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FApproved_Invoice.png?alt=media&token=5d1ef5e8-a564-4f90-b374-10c13f503972"
     }
   },
