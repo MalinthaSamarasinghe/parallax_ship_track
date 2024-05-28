@@ -14,3 +14,6 @@ const kDividerColor = Color(0xffb3b3b3);
 const kFontColor = Color(0xff666666);
 const kFontHintColor = Color(0xffbdb6b6);
 const kDashboardColor = Color(0xffF9FCFE);
+const kDialogBgColor = Color(0xff000024);
+const kIndicatorColor = Color(0xff42BFEC);
+

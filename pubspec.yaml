@@ -77,6 +77,8 @@ dependencies:
   flutter_native_splash: ^2.4.0
   # Draw SVG files using Flutter
   flutter_svg: ^2.0.9
+  # A powerful & easy to use timeline package for Flutter. All UI components in this package are separate widgets.
+  timelines: ^0.1.0
 
 dev_dependencies:
   flutter_test:

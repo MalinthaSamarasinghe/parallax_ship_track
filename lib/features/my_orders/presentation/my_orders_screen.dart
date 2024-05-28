@@ -180,7 +180,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   void _showOrderTimeLineView() {
     showDialog<String>(
       context: context,
-      barrierColor: kColorBlack.withOpacity(0.3),
+      barrierColor: kDialogBgColor.withOpacity(0.3),
       builder: (_) {
         return BlocProvider.value(
           value: BlocProvider.of<DashboardBloc>(context),

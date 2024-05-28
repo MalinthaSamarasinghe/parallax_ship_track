@@ -88,7 +88,7 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                            iconSize: 20.sp,
+                            iconSize: 20.r,
                             onPressed: (){
                               Navigator.pop(context);
                             },

@@ -82,7 +82,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                            iconSize: 20.sp,
+                            iconSize: 20.r,
                             onPressed: (){
                               Navigator.pop(context);
                             },
@@ -98,7 +98,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                           ),
                           IconButton(
                             icon: const Icon(Icons.file_download_outlined),
-                            iconSize: 24.sp,
+                            iconSize: 24.r,
                             onPressed: (){ },
                             color: kColorBlack,
                             highlightColor: Colors.transparent,

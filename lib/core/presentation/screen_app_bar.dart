@@ -45,7 +45,7 @@ class ScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: EdgeInsets.only(top: 12.h, left: 15.w),
         child: IconButton(
           icon: const Icon(Icons.menu),
-          iconSize: 25.sp,
+          iconSize: 25.r,
           onPressed: onLeadingPress,
           color: kColorBlack,
           highlightColor: Colors.transparent,
@@ -57,7 +57,7 @@ class ScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: EdgeInsets.only(top: 11.h, right: 15.w),
           child: IconButton(
             icon: const Icon(Icons.notifications_none_outlined),
-            iconSize: 25.sp,
+            iconSize: 25.r,
             onPressed: onTrailingPress,
             color: kColorBlack,
             highlightColor: Colors.transparent,
