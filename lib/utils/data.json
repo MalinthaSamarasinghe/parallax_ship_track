@@ -1,0 +1,313 @@
+{
+  "Order_Statistics": {
+    "Orders_Count": {
+      "Value": "3.1k",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Order_Statistics%2FOrders_Count.png?alt=media&token=740a756e-c9e3-43ea-b14c-064eb33b6c16"
+    },
+    "Total_Delivery_Charges": {
+      "Value": "4.8k",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Order_Statistics%2FTotal_Delivery_Charges.png?alt=media&token=05c73f6b-f5d6-4b53-9ecf-ce7e1941b082"
+    }
+  },
+  "Finance_Statistics": {
+    "Invoice_Value": {
+      "Value": "234.1k",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FPaid_Invoice_Value.png?alt=media&token=a982e57b-9406-4981-9917-a4b5c1a7c1ca"
+    },
+    "Pending_Invoice": {
+      "Value": "122.3k",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FPending_Invoice.png?alt=media&token=65c3ca03-2f2a-4e9e-a4c4-a4fb0e367356"
+    },
+    "Paid_Invoice_Value": {
+      "Value": "678.7k",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FPaid_Invoice_Value.png?alt=media&token=a982e57b-9406-4981-9917-a4b5c1a7c1ca"
+    },
+    "Approved_Invoice": {
+      "Value": "101.1k",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Finance_Statistics%2FApproved_Invoice.png?alt=media&token=5d1ef5e8-a564-4f90-b374-10c13f503972"
+    }
+  },
+  "Status_Statistics": {
+    "Pickup_Rider_Assigned": {
+      "No_Of_Orders": {
+        "Value": "76",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Paid_Delivery_Charges",
+        "Value": "50371.50",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "67%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPickup_Rider_Assigned.png?alt=media&token=4ae23404-2d77-4e9e-9a9e-45abdff9f0e8"
+    },
+    "Picked_Up": {
+      "No_Of_Orders": {
+        "Value": "127",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": null,
+      "Ratio": "92%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPicked_Up.png?alt=media&token=90fd8b32-ca4c-4c04-be80-d43efac117dd"
+    },
+    "Confirmed": {
+      "No_Of_Orders": {
+        "Value": "45",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Estimated_Delivery_Hours",
+        "Value": "72",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "15%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FConfirmed.png?alt=media&token=8b63fd47-b744-4dee-9fe0-e2c0b57ec6e7"
+    },
+    "Cancelled": {
+      "No_Of_Orders": {
+        "Value": "11",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": null,
+      "Ratio": "67%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FCancelled.png?alt=media&token=74efe8dc-8231-4f80-9c54-08ff0abf9109"
+    },
+    "Delivered": {
+      "No_Of_Orders": {
+        "Value": "427",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Delivered_Hours",
+        "Value": "951",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "98.9%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FDelivered.png?alt=media&token=dafba15e-9a65-4ed6-a4d3-11f0d18b96cf"
+    },
+    "Partially_Delivered": {
+      "No_Of_Orders": {
+        "Value": "20",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Partial_Delivered_Hours",
+        "Value": "37",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "22.6%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPartially_Delivered.png?alt=media&token=97048f67-4657-4bde-b13a-ba64e2701d7b"
+    },
+    "Awaiting_Payment": {
+      "No_Of_Orders": {
+        "Value": "10",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Payment_Amount",
+        "Value": "20335",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "14.8%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FAwaiting_Payment.png?alt=media&token=013eb7c6-1903-423b-bb33-d9572fa4b920"
+    },
+    "Rescheduled": {
+      "No_Of_Orders": {
+        "Value": "11",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": null,
+      "Ratio": "16.4%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FRescheduled.png?alt=media&token=44ba0360-8466-4fd7-949b-3b5220129a13"
+    },
+    "Failed_To_Delivery": {
+      "No_Of_Orders": {
+        "Value": "25",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": null,
+      "Ratio": "28%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FFailed_To_Delivery.png?alt=media&token=f3efa457-6c7f-4070-bf91-0ada1788353c"
+    },
+    "On_Hold": {
+      "No_Of_Orders": {
+        "Value": "4",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Estimated_Release_Hours",
+        "Value": "2",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "7.2%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FOn_Hold.png?alt=media&token=9708a81b-29ce-4402-8675-b4e96b59098a"
+    },
+    "Processing": {
+      "No_Of_Orders": {
+        "Value": "19",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": null,
+      "Ratio": "22%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FProcessing.png?alt=media&token=76da7bd1-e0e2-4e5c-8652-3d9a5e9143ec"
+    },
+    "Out_for_Delivery": {
+      "No_Of_Orders": {
+        "Value": "20",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": {
+        "name": "Estimated_Hours",
+        "Value": "114",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FPaid_Delivery_Charges.png?alt=media&token=77e6ceed-2ebb-4515-9101-74db8ff4c34a"
+      },
+      "Ratio": "22.6%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FOut_for_Delivery.png?alt=media&token=cfa851c1-59cd-4283-b5b4-b6f13a0bd145"
+    },
+    "Returned": {
+      "No_Of_Orders": {
+        "Value": "25",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FNo_Of_Orders.png?alt=media&token=34324879-c6d5-4682-a406-7060ac15c821"
+      },
+      "Second_Value": null,
+      "Ratio": "28%",
+      "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/Status_Statistics%2FReturned.png?alt=media&token=2ca92731-1ed0-48de-a37a-69f17d87dc83"
+    }
+  },
+  "Users": {
+    "j3sGnPopehS1VHkFLoWKlio64M33": {
+      "All_Orders": {
+        "Value": "3.1k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FAll_Orders.png?alt=media&token=8f7fe15e-03a4-4fff-a813-dab99412d744"
+      },
+      "Draft": {
+        "Value": "3.1k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FDraft.png?alt=media&token=51b521ef-2729-412e-a4e3-524c7221f8ea"
+      },
+      "Confirmed": {
+        "Value": "234.1k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FConfirmed.png?alt=media&token=458d61dc-1dfd-47af-9cf4-0cbe73318f45"
+      },
+      "Cancelled": {
+        "Value": "122.3k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FCancelled.png?alt=media&token=dd43f3d9-f1ba-4a22-8bdf-d043da20e58f"
+      },
+      "Delivered": {
+        "Value": "678.7k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FDelivered.png?alt=media&token=c5e1f226-03e2-470c-b412-b47694b8b0ab"
+      },
+      "Partially_Delivered": {
+        "Value": "101.1k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FPartially_Delivered.png?alt=media&token=dea961d3-999a-41a1-ba4b-e868786fa58f"
+      },
+      "Rescheduled": {
+        "Value": "678.7k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FDelivered.png?alt=media&token=c5e1f226-03e2-470c-b412-b47694b8b0ab"
+      },
+      "Failed_To_Delivery": {
+        "Value": "678.7k",
+        "Image_URL": "https://firebasestorage.googleapis.com/v0/b/parallax-ship-track.appspot.com/o/My_Orders%2FPartially_Delivered.png?alt=media&token=dea961d3-999a-41a1-ba4b-e868786fa58f"
+      }
+    }
+  },
+  "Orders": {
+    "CFC0060300": {
+      "Code": "CFC0060300",
+      "Status": "Confirmed",
+      "COD": "Rs.250",
+      "Weight": "1kg",
+      "Created_On": ":02/06/2023 14:49",
+      "Updated_At": "2024-04-23T20:36:45.439548",
+      "Merchant_Details": {
+        "Merchant_Name": "Iphone Store",
+        "Merchant_Image": "https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere.png",
+        "Merchant_Id": "MC-0002",
+        "Merchant_Address": "Pickup Address: 280, Duplication Road, Colombo",
+        "Merchant_City": "Nugegoda",
+        "Merchant_Warehouse": "Trans Express"
+      },
+      "Customer_Details": {
+        "Customer_Name": "Mr.john Deo",
+        "Customer_Image": "https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere.png",
+        "Customer_Address": "Nugegoda",
+        "Customer_Mail": "john@gmail.com",
+        "Customer_Number": "0777678340",
+        "Customer_City": "Colombo 01",
+        "Customer_Warehouse": "Trans Express"
+      },
+      "General_Remark": {
+        "Remark_1": {
+          "Remarked_By": "Mr.John Deo",
+          "Remark": "Stock sold out",
+          "Tag": "No Specified Tags",
+          "Remark_Date": "08/06/2023 20:28",
+          "Read_By": 1
+        },
+        "Remark_2": {
+          "Remarked_By": "Mr.Emma Deo",
+          "Remark": "Stock sold out",
+          "Tag": "No Specified Tags",
+          "Remark_Date": "04/06/2023 20:28",
+          "Read_By": 2
+        },
+        "Remark_3": {
+          "Remarked_By": "Mr.John Deo",
+          "Remark": "Stock sold out",
+          "Tag": "No Specified Tags",
+          "Remark_Date": "11/06/2023 20:28",
+          "Read_By": 2
+        }
+      },
+      "Invoice_History": {
+        "1": {
+          "Invoice_History_Type": "Approved",
+          "Invoice_History_Amount": "LKR 804",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        },
+        "2": {
+          "Invoice_History_Type": "Deposited",
+          "Invoice_History_Amount": "LKR 804",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        },
+        "3": {
+          "Invoice_History_Type": "Pending",
+          "Invoice_History_Amount": "LKR 804",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        }
+      },
+      "Order_History": {
+        "1": {
+          "Invoice_History_Type": "DELIVERED",
+          "Invoice_History_Message": "Collected COD Rs. 250.00. Rider: Test 09 Rider",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        },
+        "2": {
+          "Invoice_History_Type": "ASSIGNED TO DESTINATION RIDER",
+          "Invoice_History_Message": "Collected COD Rs. 250.00. Rider: Test 09 Rider",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        },
+        "3": {
+          "Invoice_History_Type": "RECEIVED TO ORIGIN WAREHOUSE",
+          "Invoice_History_Message": "Collected COD Rs. 250.00. Rider: Test 09 Rider",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        },
+        "4": {
+          "Invoice_History_Type": "RECEIVED TO ORIGIN WAREHOUSE",
+          "Invoice_History_Message": "Collected COD Rs. 250.00. Rider: Test 09 Rider",
+          "Invoice_History_User_One": "Demo Admin",
+          "Invoice_History_User_Two": "Super Admin"
+        }
+      },
+      "Tracking": {
+        "Latitude": 6.9061,
+        "Longitude": 79.9696
+      }
+    }
+  }
+}

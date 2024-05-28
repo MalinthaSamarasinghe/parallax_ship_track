@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:742072616352:android:9559250cc44d20da1fd0c5',
     messagingSenderId: '742072616352',
     projectId: 'parallax-ship-track',
+    databaseURL: 'https://parallax-ship-track-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'parallax-ship-track.appspot.com',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:742072616352:ios:b5a4b961bfb0f5aa1fd0c5',
     messagingSenderId: '742072616352',
     projectId: 'parallax-ship-track',
+    databaseURL: 'https://parallax-ship-track-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'parallax-ship-track.appspot.com',
     iosBundleId: 'com.example.parallaxShipTrack',
   );
+
 }
