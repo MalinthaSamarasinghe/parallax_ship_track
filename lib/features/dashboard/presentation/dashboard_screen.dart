@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/screen_app_bar.dart';
+import '../../my_orders/presentation/my_orders_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import '../../status_statistics/presentation/status_statistics_screen.dart';
@@ -74,7 +75,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
         appBar: ScreenAppBar(
           title: 'Dashboard',
           onTrailingPress: () { },
-          onLeadingPress: () { },
+          onLeadingPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) {
+                  return BlocProvider.value(
+                    value: BlocProvider.of<DashboardBloc>(context),
+                    child: const MyOrdersScreen(),
+                  );
+                },
+              ),
+            );
+          },
         ),
         body: Container(
           width: double.infinity,

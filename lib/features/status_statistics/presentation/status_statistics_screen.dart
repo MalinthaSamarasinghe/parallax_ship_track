@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../../utils/font.dart';
 import '../../../utils/colors.dart';
 import 'package:flutter/services.dart';
