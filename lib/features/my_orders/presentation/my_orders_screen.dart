@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/screen_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../all_orders/presentation/all_orders_screen.dart';
 import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
@@ -92,7 +93,19 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                         itemCount: 18,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () { },
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) {
+                                    return BlocProvider.value(
+                                      value: BlocProvider.of<DashboardBloc>(context),
+                                      child: const AllOrdersScreen(),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                             child: Container(
                               width: 144.w,
                               height: 144.w,
