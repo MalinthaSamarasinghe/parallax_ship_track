@@ -79,6 +79,12 @@ dependencies:
   flutter_svg: ^2.0.9
   # A powerful & easy to use timeline package for Flutter. All UI components in this package are separate widgets.
   timelines: ^0.1.0
+  # Geolocation plugin for Flutter. This plugin provides a cross-platform (iOS, Android) API for generic location (GPS etc.) functions.
+  geolocator: ^12.0.0
+  # A Flutter plugin for integrating Google Maps in iOS and Android applications.
+  google_maps_flutter: ^2.6.1
+  # A widget based custom info window for google_maps_flutter package.
+  custom_info_window: ^1.0.1
 
 dev_dependencies:
   flutter_test:
