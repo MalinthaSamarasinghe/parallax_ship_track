@@ -62,3 +62,28 @@ TextStyle kInter800(BuildContext context, {Color color = kColorBlack, double? fo
     height: height,
   );
 }
+
+/// Montserrat
+TextStyle kMontserrat500(BuildContext context, {Color color = kColorBlack, double? fontSize, double? height, TextDecoration? decoration = TextDecoration.none}) {
+  return TextStyle(
+    fontFamily: 'Montserrat',
+    color: color,
+    fontSize: fontSize ?? 18.sp,
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    decoration: decoration,
+    height: height,
+  );
+}
+
+TextStyle kMontserrat600(BuildContext context, {Color color = kColorBlack, double? fontSize, double? height, TextDecoration? decoration = TextDecoration.none}) {
+  return TextStyle(
+    fontFamily: 'Montserrat',
+    color: color,
+    fontSize: fontSize ?? 18.sp,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    decoration: decoration,
+    height: height,
+  );
+}

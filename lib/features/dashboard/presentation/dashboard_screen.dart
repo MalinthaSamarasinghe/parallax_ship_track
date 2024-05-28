@@ -1,21 +1,15 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-
-import '../../../core/presentation/screen_app_bar.dart';
 import '../../../injector.dart';
 import '../../../utils/font.dart';
 import 'bloc/dashboard_bloc.dart';
 import '../../../utils/colors.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/presentation/shimmer_builder.dart';
+import '../../../core/presentation/screen_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import '../../status_statistics/presentation/status_statistics_screen.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
 class DashboardScreenWrapper extends StatelessWidget {
@@ -101,6 +95,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 20.h),
+                    /// Orders Statistics
                     Container(
                       width: double.maxFinite,
                       margin: EdgeInsets.symmetric(horizontal: 15.w),
@@ -192,6 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     SizedBox(height: 20.h),
+                    /// Finance Statistics
                     Container(
                       width: double.maxFinite,
                       margin: EdgeInsets.symmetric(horizontal: 15.w),
@@ -283,10 +279,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     SizedBox(height: 20.h),
+                    /// Status Statistics
                     Container(
                       width: double.maxFinite,
                       margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      padding: EdgeInsets.fromLTRB(20.w, 5.h, 20.w, 5.h),
+                      padding: EdgeInsets.fromLTRB(22.w, 6.h, 40.w, 12.h),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.r),
                         color: kColorWhite,
@@ -314,37 +311,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 25.w),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Status Statistics',
-                                style: kInter500(context, fontSize: 16.sp),
-                              ),
-                              SizedBox(height: 8.h),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () { },
-                                  child: Text(
-                                    "show details",
-                                    style: kInter500(context, color: kColorLightBlue.withOpacity(0.6), fontSize: 16.sp, height: 1.h),
-                                    textAlign: TextAlign.right,
+                          SizedBox(width: 24.w),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Status Statistics',
+                                  style: kInter500(context, fontSize: 16.sp),
+                                ),
+                                SizedBox(height: 2.h),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) {
+                                            return BlocProvider.value(
+                                              value: BlocProvider.of<DashboardBloc>(context),
+                                              child: const StatusStatisticsScreen(),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      "show details",
+                                      style: kInter500(context, color: kColorLightBlue.withOpacity(0.6), fontSize: 16.sp, height: 1.h),
+                                      textAlign: TextAlign.right,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 56.h),
                     Text(
                       'Powered by curfox.lk',
                       style: kInter700(context, color: kFontColor.withOpacity(0.6), fontSize: 11.sp),
                     ),
-                    SizedBox(height: 200.h),
+                    SizedBox(height: 72.h),
                   ],
                 );
               },
