@@ -75,6 +75,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         }
         debugPrint("DashboardFinanceStatisticsChanged data --> snapshot: $data");
         emit(state.copyWith(
+          status: DashboardStatus.success,
           dashboardFinanceStatisticsData: data,
         ));
       } catch (e) {

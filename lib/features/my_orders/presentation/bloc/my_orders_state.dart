@@ -10,7 +10,7 @@ class MyOrdersState extends Equatable {
 
   const MyOrdersState({
     this.status = MyOrdersStatus.initial,
-    this.myOrdersData,
+    this.myOrdersData = const [],
     this.successMessage,
     this.errorMessage,
   });

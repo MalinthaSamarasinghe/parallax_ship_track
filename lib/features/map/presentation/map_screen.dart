@@ -79,6 +79,7 @@ class MapScreen extends StatelessWidget {
                   ),
                 );
               } else {
+                /// TODO: GoogleMapWidget is not implemented yet
                 // return GoogleMapWidget(userCurrentLocationData: state.currentLocationData!);
                 return const SizedBox();
               }

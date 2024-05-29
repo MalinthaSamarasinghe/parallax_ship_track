@@ -17,28 +17,38 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
   void _myOrdersChanged(MyOrdersChanged event, Emitter<MyOrdersState> emit) {
     if (event.data!.snapshot.exists) {
       List<DashboardStatisticsEntity>? data = [];
-      for (final child in event.data!.snapshot.children) {
-        /// cast the snapshot value to a Map
-        Map<String, dynamic> myOrdersObj = Map<String, dynamic>.from(child.value as Map);
-        debugPrint("MyOrdersChanged data --> snapshot: $myOrdersObj");
-        String name = myOrdersObj['Name'];
-        String value = myOrdersObj['Value'];
-        String mainCategory = myOrdersObj['Main_Category'];
-        String imagePath = myOrdersObj['Image_URL'];
-        data.add(DashboardStatisticsEntity(
-          name: name,
-          value: value,
-          mainCategory: mainCategory,
-          imagePath: imagePath,
+      try{
+        for (final child in event.data!.snapshot.children) {
+          /// cast the snapshot value to a Map
+          Map<String, dynamic> myOrdersObj = Map<String, dynamic>.from(child.value as Map);
+          String name = myOrdersObj['Name'];
+          String value = myOrdersObj['Value'];
+          String mainCategory = myOrdersObj['Main_Category'];
+          String imagePath = myOrdersObj['Image_URL'];
+          data.add(DashboardStatisticsEntity(
+            name: name,
+            value: value,
+            mainCategory: mainCategory,
+            imagePath: imagePath,
+          ));
+        }
+        debugPrint("MyOrdersChanged data --> snapshot: $data");
+        emit(state.copyWith(
+          status: MyOrdersStatus.success,
+          myOrdersData: data,
+        ));
+      } catch (e) {
+        debugPrint("MyOrdersChanged error: $e");
+        emit(state.copyWith(
+          status: MyOrdersStatus.failure,
+          myOrdersData: [],
+          errorMessage: e.toString(),
         ));
       }
-      debugPrint("MyOrdersChanged data --> snapshot: $data");
-      emit(state.copyWith(
-        myOrdersData: data,
-      ));
     } else {
       emit(state.copyWith(
-        myOrdersData: [],
+        status: MyOrdersStatus.success,
+        myOrdersData: state.myOrdersData,
       ));
       debugPrint("MyOrdersChanged data --> snapshot: ${state.myOrdersData}");
     }

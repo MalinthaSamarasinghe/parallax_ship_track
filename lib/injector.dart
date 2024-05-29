@@ -8,21 +8,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/network/interceptors/authorization_interceptor.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import 'features/dashboard/presentation/bloc/dashboard_bloc.dart';
-
-import 'features/my_orders/presentation/bloc/my_orders_bloc.dart';
-
-import 'features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
-import 'features/forgot_password/domain/usecase/forgot_password_usecase.dart';
-import 'features/forgot_password/domain/repository/forgot_password_repository.dart';
-import 'features/forgot_password/data/repository/forgot_password_repository_impl.dart';
-import 'features/forgot_password/data/datasource/forgot_password_remote_data_source.dart';
+import 'features/signup/domain/usecase/signup_usecase.dart';
+import 'features/signup/presentation/bloc/sign_up_bloc.dart';
+import 'features/signup/domain/repository/signup_repository.dart';
+import 'features/signup/data/repository/signup_repository_impl.dart';
+import 'features/signup/data/datasource/signup_remote_data_source.dart';
 
 import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/login/domain/repository/login_repository.dart';
 import 'features/login/domain/usecase/password_login_usecase.dart';
 import 'features/login/data/repository/login_repository_impl.dart';
 import 'features/login/data/datasource/login_remote_data_source.dart';
+
+import 'features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
+import 'features/forgot_password/domain/usecase/forgot_password_usecase.dart';
+import 'features/forgot_password/domain/repository/forgot_password_repository.dart';
+import 'features/forgot_password/data/repository/forgot_password_repository_impl.dart';
+import 'features/forgot_password/data/datasource/forgot_password_remote_data_source.dart';
 
 import 'features/profile/presentation/bloc/profile_bloc.dart';
 import 'features/profile/domain/usecase/user_name_usecase.dart';
@@ -32,11 +34,11 @@ import 'features/profile/data/repository/profile_repository_impl.dart';
 import 'features/profile/domain/usecase/user_profile_image_usecase.dart';
 import 'features/profile/data/datasource/profile_remote_data_source.dart';
 
-import 'features/signup/domain/usecase/signup_usecase.dart';
-import 'features/signup/presentation/bloc/sign_up_bloc.dart';
-import 'features/signup/domain/repository/signup_repository.dart';
-import 'features/signup/data/repository/signup_repository_impl.dart';
-import 'features/signup/data/datasource/signup_remote_data_source.dart';
+import 'features/all_orders/presentation/bloc/all_orders_bloc.dart';
+
+import 'features/my_orders/presentation/bloc/my_orders_bloc.dart';
+
+import 'features/dashboard/presentation/bloc/dashboard_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -45,6 +47,16 @@ Future<void> setupLocators() async {
   // Blocs
   sl.registerLazySingleton<AuthBloc>(() => AuthBloc(authenticationRepository: sl()));
   sl.registerLazySingleton<AuthenticationRepository>(() => AuthenticationRepository());
+
+  /// Feature: SignUp Screen
+  // Blocs
+  sl.registerFactory<SignUpBloc>(() => SignUpBloc(signUpUseCase: sl()));
+  // Use Cases
+  sl.registerLazySingleton<SignUpUseCase>(() => SignUpUseCase(signUpRepository: sl()));
+  // Repositories
+  sl.registerLazySingleton<SignUpRepository>(() => SignUpRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));
+  // Data Sources
+  sl.registerLazySingleton<SignUpRemoteDataSource>(() => SignUpRemoteDataSourceImpl());
 
   /// Feature: Login Screen
   // Blocs
@@ -56,15 +68,15 @@ Future<void> setupLocators() async {
   // Data Sources
   sl.registerLazySingleton<LoginRemoteDataSource>(() => LoginRemoteDataSourceImpl());
 
-  /// Feature: SignUp Screen
+  /// Feature: Forgot Password Screen
   // Blocs
-  sl.registerFactory<SignUpBloc>(() => SignUpBloc(signUpUseCase: sl()));
+  sl.registerFactory<ForgotPasswordBloc>(() => ForgotPasswordBloc(forgotPasswordUseCase: sl()));
   // Use Cases
-  sl.registerLazySingleton<SignUpUseCase>(() => SignUpUseCase(signUpRepository: sl()));
+  sl.registerLazySingleton<ForgotPasswordUseCase>(() => ForgotPasswordUseCase(forgotPasswordRepository: sl()));
   // Repositories
-  sl.registerLazySingleton<SignUpRepository>(() => SignUpRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));
+  sl.registerLazySingleton<ForgotPasswordRepository>(() => ForgotPasswordRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));
   // Data Sources
-  sl.registerLazySingleton<SignUpRemoteDataSource>(() => SignUpRemoteDataSourceImpl());
+  sl.registerLazySingleton<ForgotPasswordRemoteDataSource>(() => ForgotPasswordRemoteDataSourceImpl());
 
   /// Feature: Profile Screen
   // Blocs
@@ -78,16 +90,6 @@ Future<void> setupLocators() async {
   // Data Sources
   sl.registerLazySingleton<ProfileRemoteDataSource>(() => ProfileRemoteDataSourceImpl());
 
-  /// Feature: Forgot Password Screen
-  // Blocs
-  sl.registerFactory<ForgotPasswordBloc>(() => ForgotPasswordBloc(forgotPasswordUseCase: sl()));
-  // Use Cases
-  sl.registerLazySingleton<ForgotPasswordUseCase>(() => ForgotPasswordUseCase(forgotPasswordRepository: sl()));
-  // Repositories
-  sl.registerLazySingleton<ForgotPasswordRepository>(() => ForgotPasswordRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));
-  // Data Sources
-  sl.registerLazySingleton<ForgotPasswordRemoteDataSource>(() => ForgotPasswordRemoteDataSourceImpl());
-
   /// Feature: Dashboard Screen
   // Blocs
   sl.registerFactory<DashboardBloc>(() => DashboardBloc());
@@ -95,6 +97,10 @@ Future<void> setupLocators() async {
   /// Feature: My Orders Screen
   // Blocs
   sl.registerFactory<MyOrdersBloc>(() => MyOrdersBloc());
+
+  /// Feature: All Orders Screen
+  // Blocs
+  sl.registerFactory<AllOrdersBloc>(() => AllOrdersBloc());
 
   /// Network
   sl.registerFactory<Dio>(() => Dio());

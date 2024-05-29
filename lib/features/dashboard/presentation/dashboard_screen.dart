@@ -117,7 +117,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 builder: (_) {
                   return BlocProvider.value(
                     value: BlocProvider.of<MyOrdersBloc>(context),
-                    child: const MyOrdersScreen(),
+                    child: const MyOrdersScreenWrapper(),
                   );
                 },
               ),
@@ -212,7 +212,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     imageUrl: (state.dashboardOrderStatisticsData ?? []).isNotEmpty
                                                         ? state.dashboardOrderStatisticsData![index].imagePath
                                                         : '',
-                                                    placeholder: (context, url) => shimmerLoader(),
+                                                    placeholder: (context, url) => Container(
+                                                      width: 45.w,
+                                                      height: 45.w,
+                                                      clipBehavior: Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                                                      ),
+                                                      child: shimmerLoader(),
+                                                    ),
                                                     errorWidget: (context, url, error) => SvgPicture.asset(
                                                       'assets/svg/error_warning.svg',
                                                       colorFilter: const ColorFilter.mode(kFontColor, BlendMode.srcIn),
@@ -334,7 +342,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     imageUrl: (state.dashboardFinanceStatisticsData ?? []).isNotEmpty
                                                         ? state.dashboardFinanceStatisticsData![index].imagePath
                                                         : '',
-                                                    placeholder: (context, url) => shimmerLoader(),
+                                                    placeholder: (context, url) => Container(
+                                                      width: 45.w,
+                                                      height: 45.w,
+                                                      clipBehavior: Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                                                      ),
+                                                      child: shimmerLoader(),
+                                                    ),
                                                     errorWidget: (context, url, error) => SvgPicture.asset(
                                                       'assets/svg/error_warning.svg',
                                                       colorFilter: const ColorFilter.mode(kFontColor, BlendMode.srcIn),

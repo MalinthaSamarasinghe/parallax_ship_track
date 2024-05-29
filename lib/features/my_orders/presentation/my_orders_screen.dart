@@ -7,14 +7,31 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import '../../../core/presentation/screen_app_bar.dart';
 import '../../../core/presentation/shimmer_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../all_orders/presentation/all_orders_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../all_orders/presentation/bloc/all_orders_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import '../../order_details/presentation/order_details_tab_view.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
+
+class MyOrdersScreenWrapper extends StatelessWidget {
+  const MyOrdersScreenWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AllOrdersBloc>(
+          create: (context) => sl<AllOrdersBloc>(),
+        ),
+      ],
+      child: const MyOrdersScreen(),
+    );
+  }
+}
 
 class MyOrdersScreen extends StatefulWidget {
   const MyOrdersScreen({super.key});
@@ -62,14 +79,16 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         appBar: ScreenAppBar(
           title: 'My Orders',
           onTrailingPress: () { },
-          onLeadingPress: () { },
+          onLeadingPress: () {
+            Navigator.pop(context);
+          },
         ),
         body: Container(
           width: double.infinity,
           height: double.infinity,
           color: kDashboardColor,
           child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: BlocBuilder<MyOrdersBloc, MyOrdersState>(
               buildWhen: (prev, current) {
                 if (prev.status == MyOrdersStatus.initial && current.status == MyOrdersStatus.loading) {
@@ -99,21 +118,19 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              // if(index.isEven){
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (_) {
-                              //         return BlocProvider.value(
-                              //           value: BlocProvider.of<DashboardBloc>(context),
-                              //           child: const AllOrdersScreen(),
-                              //         );
-                              //       },
-                              //     ),
-                              //   );
-                              // } else {
-                              //   _showOrderTabView();
-                              // }
+                              if((state.myOrdersData ?? []).isNotEmpty && state.myOrdersData![index].name == 'All Orders'){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) {
+                                      return BlocProvider.value(
+                                        value: BlocProvider.of<AllOrdersBloc>(context),
+                                        child: const AllOrdersScreen(),
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               width: 144.w,
@@ -141,7 +158,15 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                         imageUrl: (state.myOrdersData ?? []).isNotEmpty
                                             ? state.myOrdersData![index].imagePath
                                             : '',
-                                        placeholder: (context, url) => shimmerLoader(),
+                                        placeholder: (context, url) => Container(
+                                          width: 54.w,
+                                          height: 54.w,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                                          ),
+                                          child: shimmerLoader(),
+                                        ),
                                         errorWidget: (context, url, error) => SvgPicture.asset(
                                           'assets/svg/error_warning.svg',
                                           colorFilter: const ColorFilter.mode(kFontColor, BlendMode.srcIn),
@@ -154,19 +179,25 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                   ),
                                   SizedBox(height: 5.h),
                                   SizedBox(
-                                    width: 140.w,
-                                    child: Text(
+                                    width: 130.w,
+                                    child: AutoSizeText(
                                       (state.myOrdersData ?? []).isNotEmpty ? state.myOrdersData![index].value : '',
                                       style: kInter800(context, fontSize: 18.sp),
                                       textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      minFontSize: 18,
+                                      maxLines: 1,
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 140.w,
-                                    child: Text(
+                                    width: 135.w,
+                                    child: AutoSizeText(
                                       (state.myOrdersData ?? []).isNotEmpty ? state.myOrdersData![index].name : '',
-                                      style: kInter500(context, fontSize: 16.sp),
+                                      style: kInter500(context, color: kFontColor, fontSize: 16.sp),
                                       textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      minFontSize: 16,
+                                      maxLines: 1,
                                     ),
                                   ),
                                   SizedBox(height: 10.h),

@@ -1,12 +1,12 @@
 import 'dart:async';
 import '../../../utils/font.dart';
+import 'bloc/all_orders_bloc.dart';
 import '../../../utils/colors.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/screen_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../order_details/presentation/order_details_view.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
@@ -19,15 +19,13 @@ class AllOrdersScreen extends StatefulWidget {
 }
 
 class _AllOrdersScreenState extends State<AllOrdersScreen> {
-  late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
-  String userUid = 'unknown_uid';
+  late final StreamSubscription<firebase_database.DatabaseEvent> allOrdersDataSubscription;
 
   @override
   void initState() {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
-    userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
-    dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
+    allOrdersDataSubscription = getAllOrdersData().listen((data) {
+      context.read<AllOrdersBloc>().add(AllOrdersChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -36,12 +34,12 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
 
   @override
   void dispose() {
-    dataSubscription.cancel();
+    allOrdersDataSubscription.cancel();
     super.dispose();
   }
 
-  Stream<firebase_database.DatabaseEvent> getData(String uid) {
-    return firebase_database.FirebaseDatabase.instance.ref('result/$uid').onValue.map((firebaseData) {
+  Stream<firebase_database.DatabaseEvent> getAllOrdersData() {
+    return firebase_database.FirebaseDatabase.instance.ref('Orders').onValue.map((firebaseData) {
       return firebaseData;
     });
   }
@@ -65,9 +63,9 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
           color: kDashboardColor,
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            child: BlocBuilder<DashboardBloc, DashboardState>(
+            child: BlocBuilder<AllOrdersBloc, AllOrdersState>(
               buildWhen: (prev, current) {
-                if (prev.status == DashboardStatus.initial && current.status == DashboardStatus.loading) {
+                if (prev.status == AllOrdersStatus.initial && current.status == AllOrdersStatus.loading) {
                   return false;
                 } else {
                   return true;
@@ -100,6 +98,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                           IconButton(
                             icon: const Icon(Icons.file_download_outlined),
                             iconSize: 24.r,
+                            /// TODO: Implement download functionality
                             onPressed: (){ },
                             color: kColorBlack,
                             highlightColor: Colors.transparent,
@@ -188,7 +187,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
       barrierColor: kDialogBgColor.withOpacity(0.3),
       builder: (_) {
         return BlocProvider.value(
-          value: BlocProvider.of<DashboardBloc>(context),
+          value: BlocProvider.of<AllOrdersBloc>(context),
           child: const OrderDetailsView(),
         );
       },

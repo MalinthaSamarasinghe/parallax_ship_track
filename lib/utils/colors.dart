@@ -16,4 +16,3 @@ const kFontHintColor = Color(0xffbdb6b6);
 const kDashboardColor = Color(0xffF9FCFE);
 const kDialogBgColor = Color(0xff000024);
 const kIndicatorColor = Color(0xff42BFEC);
-
