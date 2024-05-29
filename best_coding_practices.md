@@ -26,7 +26,7 @@ Column(
 ```dart
 Text buildHello() => Text('Hello');
 ```
-✅ Refactor into widget
+✅ Refactor into a widget
 ```dart
 class HelloWidget extends StatelessWidget {
   const HelloWidget({
@@ -40,9 +40,9 @@ class HelloWidget extends StatelessWidget {
 }
 ```
 
-#### Use const keyword whenever possible
+#### Use the const keyword whenever possible
 
-Using `const constructor` for widgets can reduce the work required for garbage collectors. This may initially seem like a small performance improvement but it really adds up and makes a difference when the app is big enough or there is a view that gets frequently rebuilt.
+Using a `const constructor` for widgets can reduce the work required for garbage collectors. This may initially seem like a small performance improvement but it adds up and makes a difference when the app is big enough or there is a view that gets frequently rebuilt.
 
 ```dart
 const Container(
@@ -52,11 +52,11 @@ const Container(
 ```
 
 #### Using SizedBox instead of Container in Flutter
-There are multiple use cases where you will require to use a placeholder. Here is the ideal example below,
+There are multiple use cases where you will be required to use a placeholder. Here is the ideal example below,
 ```dart
 return _isNotLoaded ? Container() : YourAppropriateWidget();
 ```
-The Container is a great widget that you will be using extensively in Flutter. Container() brodens up to fit the constraints given by the parent and is not a const constructor.
+The Container is a great widget that you will be using extensively in Flutter. Container() broadens up to fit the constraints given by the parent and is not a const constructor.
 
 On the contrary, the SizedBox is a const constructor and builds a fixed-size box. The width and height parameters can be null to specify that the size of the box should not be constrained in the corresponding dimension.
 
