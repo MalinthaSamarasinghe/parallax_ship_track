@@ -5,8 +5,8 @@ import '../../../../utils/colors.dart';
 import 'package:timelines/timelines.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import '../../../all_orders/presentation/bloc/all_orders_bloc.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
 class OrderHistoryView extends StatefulWidget {
@@ -25,7 +25,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
     userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
     dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
+      context.read<AllOrdersBloc>().add(AllOrdersChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -48,9 +48,9 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
-      child: BlocBuilder<DashboardBloc, DashboardState>(
+      child: BlocBuilder<AllOrdersBloc, AllOrdersState>(
         buildWhen: (prev, current) {
-          if (prev.status == DashboardStatus.initial && current.status == DashboardStatus.loading) {
+          if (prev.status == AllOrdersStatus.initial && current.status == AllOrdersStatus.loading) {
             return false;
           } else {
             return true;
@@ -129,8 +129,9 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                     position: 0,
                     indicatorPosition: 0,
                     indicator: DotIndicator(color: kIndicatorColor, size: 16.r),
-                    /// TODO: if last index then remove end connector
-                    endConnector: const SolidLineConnector(color: kIndicatorColor),
+                    endConnector: index == 2
+                        ? null
+                        : const SolidLineConnector(color: kIndicatorColor),
                   ),
                 );
               },

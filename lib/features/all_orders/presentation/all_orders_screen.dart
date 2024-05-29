@@ -9,6 +9,7 @@ import '../../../core/presentation/screen_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../order_details/presentation/order_details_view.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import '../../order_details/presentation/order_details_tab_view.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
 class AllOrdersScreen extends StatefulWidget {
@@ -62,7 +63,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
           height: double.infinity,
           color: kDashboardColor,
           child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: BlocBuilder<AllOrdersBloc, AllOrdersState>(
               buildWhen: (prev, current) {
                 if (prev.status == AllOrdersStatus.initial && current.status == AllOrdersStatus.loading) {
@@ -113,58 +114,64 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                       removeTop: true,
                       removeBottom: true,
                       child: ListView.builder(
-                        itemCount: 16,
+                        itemCount: 7,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            height: 57.h,
-                            width: double.maxFinite,
-                            padding: EdgeInsets.only(left: 16.w, right: 10.w),
-                            margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: kColorWhite,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: kDividerColor.withOpacity(0.5),
-                                  offset: const Offset(1, 4),
-                                  blurRadius: 4,
-                                  spreadRadius: 1,
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'CFC0060300',
-                                    style: kMontserrat500(context, fontSize: 14.sp),
+                          return GestureDetector(
+                            onTap: () {
+                              _showOrderView();
+                            },
+                            child: Container(
+                              height: 57.h,
+                              width: double.maxFinite,
+                              padding: EdgeInsets.only(left: 16.w, right: 10.w),
+                              margin: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.r),
+                                color: kColorWhite,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kDividerColor.withOpacity(0.5),
+                                    offset: const Offset(1, 4),
+                                    blurRadius: 4,
+                                    spreadRadius: 1,
                                   ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    color: kColorRed.withOpacity(0.2),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'CFC006030$index',
+                                      style: kMontserrat500(context, fontSize: 14.sp),
+                                    ),
                                   ),
-                                  child: Text(
-                                    'Completed',
-                                    style: kInter500(context, color: kColorBlack, fontSize: 14.sp),
+                                  Container(
+                                    width: 100.w,
+                                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      color: index.isOdd ? kColorRed.withOpacity(0.2) : kIndicatorColor.withOpacity(0.3),
+                                    ),
+                                    child: Text(
+                                      index.isOdd ? 'Completed' : 'Cancelled',
+                                      style: kInter500(context, color: index.isOdd ? kColorRed : kColorBlue, fontSize: 14.sp),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 5.w),
-                                GestureDetector(
-                                  onTap: () {
-                                    _showOrderView();
-                                  },
-                                  child: Icon(
-                                    Icons.more_vert_outlined,
-                                    size: 24.r,
-                                    color: kFontColor,
+                                  SizedBox(width: 5.w),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _showOrderFullDetailsView();
+                                    },
+                                    child: Icon(
+                                      Icons.more_vert_outlined,
+                                      size: 24.r,
+                                      color: kFontColor,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -189,6 +196,19 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
         return BlocProvider.value(
           value: BlocProvider.of<AllOrdersBloc>(context),
           child: const OrderDetailsView(),
+        );
+      },
+    );
+  }
+
+  void _showOrderFullDetailsView() {
+    showDialog<String>(
+      context: context,
+      barrierColor: kDialogBgColor.withOpacity(0.3),
+      builder: (_) {
+        return BlocProvider.value(
+          value: BlocProvider.of<AllOrdersBloc>(context),
+          child: const OrderDetailsTabView(),
         );
       },
     );

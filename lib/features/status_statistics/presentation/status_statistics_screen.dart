@@ -20,10 +20,7 @@ class StatusStatisticsScreen extends StatefulWidget {
 class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
   late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
   final List<Item> _data = List<Item>.generate(
-    10, (int index) => Item(
-      headerValue: 'Item $index',
-      expandedValue: 'Details for item $index',
-    ),
+    10, (int index) => Item(title: 'Pickup Rider Assigned'),
   );
   String userUid = 'unknown_uid';
   bool isListExpanded = false;
@@ -69,7 +66,7 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
           height: double.infinity,
           color: kDashboardColor,
           child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: BlocBuilder<DashboardBloc, DashboardState>(
               buildWhen: (prev, current) {
                 if (prev.status == DashboardStatus.initial && current.status == DashboardStatus.loading) {
@@ -152,7 +149,7 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
                                         SizedBox(width: 15.w),
                                         Expanded(
                                           child: Text(
-                                            _data[index].headerValue,
+                                            _data[index].title,
                                             style: kMontserrat500(context, fontSize: 14.sp),
                                           ),
                                         ),
@@ -208,7 +205,7 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
                                                             SizedBox(
                                                               width: 140.w,
                                                               child: Text(
-                                                                "Delivery Charge",
+                                                                index.isEven ? "No of Orders" : "Delivery Charge",
                                                                 style: kMontserrat500(context, fontSize: 14.sp),
                                                                 textAlign: TextAlign.center,
                                                               ),
@@ -225,7 +222,7 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
                                                                       width: 40.w,
                                                                       height: 40.w,
                                                                       child: Image.asset(
-                                                                        "assets/images/add_button.png",
+                                                                        index.isEven ? "assets/images/order.png" : "assets/images/cash.png",
                                                                         width: 40.w,
                                                                         height: 40.w,
                                                                         fit: BoxFit.fill,
@@ -234,7 +231,7 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
                                                                   ),
                                                                   Expanded(
                                                                     child: Text(
-                                                                      "50371.50",
+                                                                      index.isEven ? "76" : "50371.50",
                                                                       style: kMontserrat600(context, color: kFontColor, fontSize: 14.sp),
                                                                       textAlign: TextAlign.center,
                                                                     ),
@@ -334,15 +331,13 @@ class _StatusStatisticsScreenState extends State<StatusStatisticsScreen> {
   }
 }
 
-// stores ExpansionPanel state information
+/// TODO: Remove This
 class Item {
+  String title;
+  bool isExpanded;
+
   Item({
-    required this.expandedValue,
-    required this.headerValue,
+    required this.title,
     this.isExpanded = false,
   });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
 }

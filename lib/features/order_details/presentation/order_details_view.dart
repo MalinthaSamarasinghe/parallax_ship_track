@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:timelines/timelines.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
+import '../../all_orders/presentation/bloc/all_orders_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
@@ -17,15 +17,13 @@ class OrderDetailsView extends StatefulWidget {
 }
 
 class _OrderDetailsViewState extends State<OrderDetailsView> {
-  late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
-  String userUid = 'unknown_uid';
+  late final StreamSubscription<firebase_database.DatabaseEvent> allOrdersDataSubscription;
 
   @override
   void initState() {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
-    userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
-    dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
+    allOrdersDataSubscription = getAllOrdersData().listen((data) {
+      context.read<AllOrdersBloc>().add(AllOrdersChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -34,12 +32,12 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
 
   @override
   void dispose() {
-    dataSubscription.cancel();
+    allOrdersDataSubscription.cancel();
     super.dispose();
   }
 
-  Stream<firebase_database.DatabaseEvent> getData(String uid) {
-    return firebase_database.FirebaseDatabase.instance.ref('result/$uid').onValue.map((firebaseData) {
+  Stream<firebase_database.DatabaseEvent> getAllOrdersData() {
+    return firebase_database.FirebaseDatabase.instance.ref('Orders').onValue.map((firebaseData) {
       return firebaseData;
     });
   }
@@ -58,9 +56,9 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
       ),
       child: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
-        child: BlocBuilder<DashboardBloc, DashboardState>(
+        child: BlocBuilder<AllOrdersBloc, AllOrdersState>(
           buildWhen: (prev, current) {
-            if (prev.status == DashboardStatus.initial && current.status == DashboardStatus.loading) {
+            if (prev.status == AllOrdersStatus.initial && current.status == AllOrdersStatus.loading) {
               return false;
             } else {
               return true;
@@ -77,7 +75,9 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                     child: IconButton(
                       icon: const Icon(Icons.close_outlined),
                       iconSize: 14.r,
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
                       color: kColorBlack,
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
@@ -111,7 +111,7 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                                       width: 68.w,
                                       height: 68.w,
                                       child: Image.asset(
-                                        "assets/images/invoice_test_user.png",
+                                        "assets/images/order_details.png",
                                         width: 68.w,
                                         height: 68.w,
                                         fit: BoxFit.fill,
@@ -125,7 +125,7 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(8.r),
-                                            color: kColorRed.withOpacity(0.2),
+                                            color: kIndicatorColor.withOpacity(0.1),
                                           ),
                                           child: Text(
                                             'CF0003034',
@@ -221,8 +221,9 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                           position: 0,
                           indicatorPosition: 0,
                           indicator: DotIndicator(color: kIndicatorColor, size: 16.r),
-                          /// TODO: if last index then remove end connector
-                          endConnector: const SolidLineConnector(color: kIndicatorColor),
+                          endConnector: index == 2
+                            ? null
+                            : const SolidLineConnector(color: kIndicatorColor),
                         ),
                       );
                     },

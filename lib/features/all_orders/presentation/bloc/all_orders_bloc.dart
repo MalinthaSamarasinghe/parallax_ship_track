@@ -23,6 +23,7 @@ class AllOrdersBloc extends Bloc<AllOrdersEvent, AllOrdersState> {
   void _allOrdersChanged(AllOrdersChanged event, Emitter<AllOrdersState> emit) {
     if (event.data!.snapshot.exists) {
       List<AllOrdersEntity>? data = [];
+      /// TODO: Error handling --> I/flutter ( 5816): AllOrdersChanged error: type 'List<Object?>' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
       try{
         for (final child in event.data!.snapshot.children) {
           /// cast the snapshot value to a Map

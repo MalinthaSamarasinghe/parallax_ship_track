@@ -7,7 +7,7 @@ import 'widgets/general_remark_view.dart';
 import 'widgets/invoice_history_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
+import '../../all_orders/presentation/bloc/all_orders_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
 
@@ -19,15 +19,13 @@ class OrderDetailsTabView extends StatefulWidget {
 }
 
 class _OrderDetailsTabViewState extends State<OrderDetailsTabView> {
-  late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
-  String userUid = 'unknown_uid';
+  late final StreamSubscription<firebase_database.DatabaseEvent> allOrdersDataSubscription;
 
   @override
   void initState() {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
-    userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
-    dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
+    allOrdersDataSubscription = getAllOrdersData().listen((data) {
+      context.read<AllOrdersBloc>().add(AllOrdersChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -36,12 +34,12 @@ class _OrderDetailsTabViewState extends State<OrderDetailsTabView> {
 
   @override
   void dispose() {
-    dataSubscription.cancel();
+    allOrdersDataSubscription.cancel();
     super.dispose();
   }
 
-  Stream<firebase_database.DatabaseEvent> getData(String uid) {
-    return firebase_database.FirebaseDatabase.instance.ref('result/$uid').onValue.map((firebaseData) {
+  Stream<firebase_database.DatabaseEvent> getAllOrdersData() {
+    return firebase_database.FirebaseDatabase.instance.ref('Orders').onValue.map((firebaseData) {
       return firebaseData;
     });
   }
@@ -70,7 +68,9 @@ class _OrderDetailsTabViewState extends State<OrderDetailsTabView> {
                 child: IconButton(
                   icon: const Icon(Icons.close_outlined),
                   iconSize: 14.r,
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
                   color: kColorBlack,
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
