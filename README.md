@@ -187,6 +187,14 @@ You can use the following details to log in to the app or create a new account. 
 
 | Screen | Mobile View | Backend Connected  |
 | - | - | - |
-| Registration View | <img width="200" src="https://user-images.githubusercontent.com/83626976/200461674-94bcd519-3b1e-44bf-b209-c7dff3d81078.jpg"/>| ✅ |
-| Business List View | <img width="200" src="https://user-images.githubusercontent.com/83626976/200471722-4ddaac01-7e4b-421e-b1e6-cfcf2f312457.png"/> | ✅ |
-| Sign Up Request Success | <img width="200" src="https://user-images.githubusercontent.com/83626976/200472049-43e498b2-42cf-4171-a136-1f5b322dfd46.png"/> | ✅ |
+| Login Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716968800.png"/>| ✅ |
+| Forgot Password Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970331.png"/> | ✅ |
+| Sign Up Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970339.png"/> | ✅ |
+| Dashboard Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970357.png"/> | ✅ |
+| Status Statistics Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970378.png"/> | - |
+| My Orders Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970389.png"/> | ✅ |
+| All Orders Screen | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970397.png"/> | - |
+| View Order Details View | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970408.png"/> | - |
+| Order History View | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970416.png"/> | - |
+| Invoice History View | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970421.png"/> | - |
+| General Remark View | <img width="200" src="https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/screenshots/Screenshot_1716970424.png"/> | - |
