@@ -144,15 +144,15 @@ dir_one
     └── custom_class.dart
 ```
 
-- All private variables and private methods should start with underscores
+- All private variables and private methods should not start with underscores
 ```dart
 // Do
-bool _isLoading = true;
-void _myFunction() {}
-
-// Do not
 bool isLoading = true;
 void myFunction() {}
+
+// Do not
+bool _isLoading = true;
+void _myFunction() {}
 ```
 
 - Constants, variables, parameters, and named parameters should be named in `lowerCamelCase` 
