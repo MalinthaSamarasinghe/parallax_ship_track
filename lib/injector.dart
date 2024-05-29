@@ -10,6 +10,8 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'features/dashboard/presentation/bloc/dashboard_bloc.dart';
 
+import 'features/my_orders/presentation/bloc/my_orders_bloc.dart';
+
 import 'features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import 'features/forgot_password/domain/usecase/forgot_password_usecase.dart';
 import 'features/forgot_password/domain/repository/forgot_password_repository.dart';
@@ -89,6 +91,10 @@ Future<void> setupLocators() async {
   /// Feature: Dashboard Screen
   // Blocs
   sl.registerFactory<DashboardBloc>(() => DashboardBloc());
+
+  /// Feature: My Orders Screen
+  // Blocs
+  sl.registerFactory<MyOrdersBloc>(() => MyOrdersBloc());
 
   /// Network
   sl.registerFactory<Dio>(() => Dio());

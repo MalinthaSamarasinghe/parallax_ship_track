@@ -30,7 +30,7 @@ class ErrorBox extends StatelessWidget {
     this.titleStyle,
     this.description = '',
     this.descriptionStyle,
-    this.svgImage = 'assets/svg/sad.svg',
+    this.svgImage = 'assets/svg/sad_icon.svg',
     this.svgSize = 25,
     this.innerPadding,
     this.outerPadding,
@@ -39,7 +39,7 @@ class ErrorBox extends StatelessWidget {
     this.titleMinFontSize = 23,
     this.titleMaxLines = 10,
     this.descriptionMinFontSize = 13,
-    this.descriptionMaxLines = 10,
+    this.descriptionMaxLines = 1,
     this.height,
   });
 
@@ -53,12 +53,12 @@ class ErrorBox extends StatelessWidget {
         margin: outerPadding ?? EdgeInsets.zero,
         padding: innerPadding ?? EdgeInsets.symmetric(horizontal: 47.w, vertical: 28.h),
         decoration: BoxDecoration(
-          color: bgColor ?? kLogoColor,
+          color: bgColor ?? kDividerColor.withOpacity(0.3),
           borderRadius: BorderRadius.circular(radius.r),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: height!=null?MainAxisAlignment.center:MainAxisAlignment.start,
+          mainAxisAlignment: height != null ? MainAxisAlignment.center : MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SvgPicture.asset(svgImage, width: svgSize.w, height: svgSize.w),

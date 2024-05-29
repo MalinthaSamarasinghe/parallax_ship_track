@@ -1,13 +1,17 @@
 import 'dart:async';
+import '../../../injector.dart';
 import '../../../utils/font.dart';
+import 'bloc/my_orders_bloc.dart';
 import '../../../utils/colors.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/screen_app_bar.dart';
+import '../../../core/presentation/shimmer_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../all_orders/presentation/all_orders_screen.dart';
-import '../../dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import '../../order_details/presentation/order_details_tab_view.dart';
 import 'package:firebase_database/firebase_database.dart' as firebase_database;
@@ -20,15 +24,15 @@ class MyOrdersScreen extends StatefulWidget {
 }
 
 class _MyOrdersScreenState extends State<MyOrdersScreen> {
-  late final StreamSubscription<firebase_database.DatabaseEvent> dataSubscription;
+  late final StreamSubscription<firebase_database.DatabaseEvent> myOrderDataSubscription;
   String userUid = 'unknown_uid';
 
   @override
   void initState() {
     firebase_auth.FirebaseAuth.instance.currentUser?.reload();
     userUid = firebase_auth.FirebaseAuth.instance.currentUser?.uid ?? 'unknown_uid';
-    dataSubscription = getData(userUid).listen((data) {
-      context.read<DashboardBloc>().add(DashboardOrderStatisticsChanged(data));
+    myOrderDataSubscription = getMyOrdersData(userUid).listen((data) {
+      context.read<MyOrdersBloc>().add(MyOrdersChanged(data));
     }, onError: (error) {
       debugPrint("Error in data stream: $error");
     });
@@ -37,12 +41,12 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
 
   @override
   void dispose() {
-    dataSubscription.cancel();
+    myOrderDataSubscription.cancel();
     super.dispose();
   }
 
-  Stream<firebase_database.DatabaseEvent> getData(String uid) {
-    return firebase_database.FirebaseDatabase.instance.ref('Users').onValue.map((firebaseData) {
+  Stream<firebase_database.DatabaseEvent> getMyOrdersData(String uid) {
+    return firebase_database.FirebaseDatabase.instance.ref('Users/$uid').onValue.map((firebaseData) {
       return firebaseData;
     });
   }
@@ -66,9 +70,9 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
           color: kDashboardColor,
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            child: BlocBuilder<DashboardBloc, DashboardState>(
+            child: BlocBuilder<MyOrdersBloc, MyOrdersState>(
               buildWhen: (prev, current) {
-                if (prev.status == DashboardStatus.initial && current.status == DashboardStatus.loading) {
+                if (prev.status == MyOrdersStatus.initial && current.status == MyOrdersStatus.loading) {
                   return false;
                 } else {
                   return true;
@@ -91,25 +95,25 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                           crossAxisSpacing: 26.w,
                           mainAxisSpacing: 24.h,
                         ),
-                        itemCount: 18,
+                        itemCount: (state.myOrdersData ?? []).length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              if(index.isEven){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) {
-                                      return BlocProvider.value(
-                                        value: BlocProvider.of<DashboardBloc>(context),
-                                        child: const AllOrdersScreen(),
-                                      );
-                                    },
-                                  ),
-                                );
-                              } else {
-                                _showOrderTabView();
-                              }
+                              // if(index.isEven){
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (_) {
+                              //         return BlocProvider.value(
+                              //           value: BlocProvider.of<DashboardBloc>(context),
+                              //           child: const AllOrdersScreen(),
+                              //         );
+                              //       },
+                              //     ),
+                              //   );
+                              // } else {
+                              //   _showOrderTabView();
+                              // }
                             },
                             child: Container(
                               width: 144.w,
@@ -133,11 +137,18 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                     child: SizedBox(
                                       width: 54.w,
                                       height: 54.w,
-                                      child: Image.asset(
-                                        "assets/images/add_button.png",
-                                        width: 54.w,
-                                        height: 54.w,
-                                        fit: BoxFit.fill,
+                                      child: CachedNetworkImage(
+                                        imageUrl: (state.myOrdersData ?? []).isNotEmpty
+                                            ? state.myOrdersData![index].imagePath
+                                            : '',
+                                        placeholder: (context, url) => shimmerLoader(),
+                                        errorWidget: (context, url, error) => SvgPicture.asset(
+                                          'assets/svg/error_warning.svg',
+                                          colorFilter: const ColorFilter.mode(kFontColor, BlendMode.srcIn),
+                                          fit: BoxFit.contain,
+                                        ),
+                                        useOldImageOnUrlChange: true,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
@@ -145,7 +156,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                   SizedBox(
                                     width: 140.w,
                                     child: Text(
-                                      "3.1k",
+                                      (state.myOrdersData ?? []).isNotEmpty ? state.myOrdersData![index].value : '',
                                       style: kInter800(context, fontSize: 18.sp),
                                       textAlign: TextAlign.center,
                                     ),
@@ -153,7 +164,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                   SizedBox(
                                     width: 140.w,
                                     child: Text(
-                                      "All Orders",
+                                      (state.myOrdersData ?? []).isNotEmpty ? state.myOrdersData![index].name : '',
                                       style: kInter500(context, fontSize: 16.sp),
                                       textAlign: TextAlign.center,
                                     ),
@@ -177,16 +188,16 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
     );
   }
 
-  void _showOrderTabView() {
-    showDialog<String>(
-      context: context,
-      barrierColor: kDialogBgColor.withOpacity(0.3),
-      builder: (_) {
-        return BlocProvider.value(
-          value: BlocProvider.of<DashboardBloc>(context),
-          child: const OrderDetailsTabView(),
-        );
-      },
-    );
-  }
+  // void _showOrderTabView() {
+  //   showDialog<String>(
+  //     context: context,
+  //     barrierColor: kDialogBgColor.withOpacity(0.3),
+  //     builder: (_) {
+  //       return BlocProvider.value(
+  //         value: BlocProvider.of<DashboardBloc>(context),
+  //         child: const OrderDetailsTabView(),
+  //       );
+  //     },
+  //   );
+  // }
 }

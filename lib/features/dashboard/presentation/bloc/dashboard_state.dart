@@ -11,8 +11,8 @@ class DashboardState extends Equatable {
 
   const DashboardState({
     this.status = DashboardStatus.initial,
-    this.dashboardOrderStatisticsData,
-    this.dashboardFinanceStatisticsData,
+    this.dashboardOrderStatisticsData = const [],
+    this.dashboardFinanceStatisticsData = const [],
     this.successMessage,
     this.errorMessage,
   });
