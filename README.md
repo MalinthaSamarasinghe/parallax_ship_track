@@ -1,10 +1,10 @@
 # Overview of Assignment - Mobile App Developer
 
 ## Objective
-Develop a mobile app that provides insights about the shipping progress of customer orders using the Flutter framework. The app should include both UI and functionalities as outlined in the requirement document. Refer to the Figma design file for UI/UX guidance.
+- Develop a mobile app that provides insights about the shipping progress of customer orders using the Flutter framework. The app should include both UI and functionalities as outlined in the requirement document. Refer to the Figma design file for UI/UX guidance.
 
 ## Time Frame
-3 days
+- 3 days
 
 ## Requirements
 ### Login Screen
@@ -33,7 +33,7 @@ Develop a mobile app that provides insights about the shipping progress of custo
 ## General Instructions
 - Development Framework: Use Flutter for app development.
 - Backend: Utilize Postman Mock Server or a similar tool for simulating backend services.
-- Design Reference: Use the provided Figma design file to guide development.
+- Design Reference: Use the provided Figma design 👉 [Assignment-for-App-Candidate](https://www.figma.com/design/geBwdFeOod9Z4zbS22Aqcf/Assignment-for-App-Candidate?node-id=0%3A1&t=wgN1m4Qj1rNI65tR-1) file to guide development.
 - Documentation: Provide clear documentation for app setup, including instructions for configuring the mock server.
 - Submission: Submit the source code via a publicly accessible GitHub repository along with setup instructions and a brief implementation report.
 
@@ -68,29 +68,33 @@ Develop a mobile app that provides insights about the shipping progress of custo
 - Push notifications for order status updates using Firebase Services.
 - Utilize Postman Mock Server or a similar tool for simulating backend services.
 - Write unit tests for critical parts of the codebase to ensure functionality and reliability.
+- Implement a navigation drawer for additional functionalities like accessing the "My Orders" screen.
+- Implement the remember email and password function.
+- Finish localization.
 
 # Developer's Guide
 
 ## Prerequisites
-- Flutter SDK ✅ Working Flutter SDK `3.19.0` 👉 [Download Flutter SDKs](https://docs.flutter.dev/release/archive?tab=windows)
-- Dart
-- Firebase account
-- Google Maps API key
+- Android Studio or Visual Studio Code 👉 [Latest Android Studio](https://developer.android.com/studio) 👉 [Latest Visual Studio Code](https://code.visualstudio.com/download)
+- Postman 👉 [Latest Postman](https://www.postman.com/downloads/)
+- Flutter SDK `3.19.0` 👉 [Download Flutter SDK](https://docs.flutter.dev/release/archive?tab=windows)
+- Dart (Already included in Flutter SDK)
+- Firebase account (If using this code for a new project)
+- Google Maps API key (If using this code for a new project)
+- Internet connection
 
-## Installation
+## Project Installation
 - Clone the project from here, 👉 [Clone the Repository](https://github.com/MalinthaSamarasinghe/parallax_ship_track.git)
 
-## Install dependencies
+## Dependencies Installation
 ```dart
 flutter pub get
 ```
 
-## Set up the Postman Mock Server
+## Set up the Postman Mock Server (The section is still under development)
 - Create a mock server in Postman.
 - Import the provided collection (if any) to Postman.
 - Set the mock server URL in your Flutter app’s API configuration.
-
-# Project Guidelines
 
 ## State Management
 - This project uses <a href="https://bloclibrary.dev/#/"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a> as a state management package.
@@ -155,7 +159,7 @@ void myFunction() {}
 - Classes, types, extension names, and enums should be typed in `UpperCamelCase`
 - Proper and **meaningful** naming practices should be followed
 
-👉 Please read [best_coding_practices.md](https://github.com/wad-coding/smaboo_business/blob/main/best_coding_practices.md) file for more information
+👉 Please read [best_coding_practices.md](https://github.com/MalinthaSamarasinghe/parallax_ship_track/blob/master/best_coding_practices.md) file for more information
 
 # Implementation Report
 
@@ -178,3 +182,11 @@ void myFunction() {}
 You can use the following details to log in to the app or create a new account. Using the test account is recommended:
 - Email: malintha.wad@gmail.com
 - Password: 123456
+
+# Completed UI
+
+| Screen | Mobile View | Backend Connected  |
+| - | - | - |
+| Registration View | <img width="200" src="https://user-images.githubusercontent.com/83626976/200461674-94bcd519-3b1e-44bf-b209-c7dff3d81078.jpg"/>| ✅ |
+| Business List View | <img width="200" src="https://user-images.githubusercontent.com/83626976/200471722-4ddaac01-7e4b-421e-b1e6-cfcf2f312457.png"/> | ✅ |
+| Sign Up Request Success | <img width="200" src="https://user-images.githubusercontent.com/83626976/200472049-43e498b2-42cf-4171-a136-1f5b322dfd46.png"/> | ✅ |
