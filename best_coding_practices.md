@@ -67,8 +67,6 @@ return _isNotLoaded ? SizedBox() : YourAppropriateWidget();
 
 #### Try to avoid `setState()` method
 
-// Todo:
-
 ### Other
 
 #### Use relative imports instead of absolute imports
