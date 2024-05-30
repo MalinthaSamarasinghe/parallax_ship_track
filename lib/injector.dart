@@ -34,6 +34,12 @@ import 'features/profile/data/repository/profile_repository_impl.dart';
 import 'features/profile/domain/usecase/user_profile_image_usecase.dart';
 import 'features/profile/data/datasource/profile_remote_data_source.dart';
 
+import 'features/map/domain/usecase/get_current_location.dart';
+import 'features/map/data/datasource/current_location_data_source.dart';
+import 'features/map/domain/repository/current_location_repository.dart';
+import 'features/map/data/repository/current_location_repository_impl.dart';
+import 'features/map/presentation/bloc/current_location/current_location_bloc.dart';
+
 import 'features/all_orders/presentation/bloc/all_orders_bloc.dart';
 
 import 'features/my_orders/presentation/bloc/my_orders_bloc.dart';
@@ -89,6 +95,16 @@ Future<void> setupLocators() async {
   sl.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));
   // Data Sources
   sl.registerLazySingleton<ProfileRemoteDataSource>(() => ProfileRemoteDataSourceImpl());
+
+  /// Feature: User Current Location
+  // Blocs
+  sl.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc(getCurrentLocation: sl()));
+  // Use Cases
+  sl.registerLazySingleton<GetCurrentLocation>(() => GetCurrentLocation(currentLocationRepository: sl()));
+  // Repositories
+  sl.registerLazySingleton<CurrentLocationRepository>(() => CurrentLocationRepositoryImpl(dataSource: sl()));
+  // Data Sources
+  sl.registerLazySingleton<CurrentLocationDataSource>(() => const CurrentLocationDataSourceImpl());
 
   /// Feature: Dashboard Screen
   // Blocs

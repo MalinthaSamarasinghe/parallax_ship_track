@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../../utils/font.dart';
 import 'bloc/all_orders_bloc.dart';
 import '../../../utils/colors.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../map/presentation/map_screen.dart';
 import '../../../core/presentation/screen_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../order_details/presentation/order_details_view.dart';
@@ -120,7 +124,19 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              _showOrderView();
+                              // _showOrderView();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) {
+                                    return BlocProvider.value(
+                                      value: BlocProvider.of<AllOrdersBloc>(context),
+                                      child: MapScreenWrapper(orderCurrentLocationData: LatLng(6.907579, 79.899033)
+                                    ),
+                                    );
+                                  },
+                                ),
+                              );
                             },
                             child: Container(
                               height: 57.h,
